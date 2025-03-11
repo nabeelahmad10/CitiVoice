@@ -3,81 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>24/7 AI Citizen Helpline - Your Digital Government Assistant</title>
+  <title>24/7 AI Citizen Helpline</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              200: '#bae6fd',
-              300: '#7dd3fc',
-              400: '#38bdf8',
-              500: '#0ea5e9',
-              600: '#0284c7',
-              700: '#0369a1',
-              800: '#075985',
-              900: '#0c4a6e',
-            },
-            government: {
-              primary: '#3b82f6',
-              secondary: '#dbeafe',
-            },
-            legal: {
-              primary: '#6366f1',
-              secondary: '#e0e7ff',
-            },
-            medical: {
-              primary: '#10b981',
-              secondary: '#d1fae5',
-            },
-            emergency: {
-              primary: '#ef4444',
-              secondary: '#fee2e2',
-            },
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-        }
-      }
-    }
-  </script>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- AOS Animation Library -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <!-- Custom styles -->
   <style>
-    :root {
-      --government-primary: #3b82f6;
-      --government-secondary: #dbeafe;
-      --legal-primary: #6366f1;
-      --legal-secondary: #e0e7ff;
-      --medical-primary: #10b981;
-      --medical-secondary: #d1fae5;
-      --emergency-primary: #ef4444;
-      --emergency-secondary: #fee2e2;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 80px;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
     body {
       font-family: 'Inter', sans-serif;
     }
     
-    /* Animation classes */
     .animate-float {
       animation: float 10s ease-in-out infinite;
     }
@@ -97,19 +35,7 @@
     }
     
     .bg-gradient-hero {
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      position: relative;
-    }
-    
-    .bg-gradient-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      opacity: 0.1;
+      background: linear-gradient(to bottom, #1e293b, #0f172a, #1e293b);
     }
     
     .bg-blur-circle {
@@ -117,10 +43,8 @@
       border-radius: 100%;
       background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%);
       filter: blur(40px);
-      z-index: 1;
     }
     
-    /* Chat message styles */
     .chat-message {
       transition: all 0.3s ease;
     }
@@ -145,7 +69,6 @@
       max-width: 80%;
     }
     
-    /* Typing indicator */
     .typing-indicator {
       display: flex;
       align-items: center;
@@ -192,2163 +115,500 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
-    
-    /* Chatbot styles */
-    .chat-container {
-      height: 500px;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1rem;
-      scroll-behavior: smooth;
-    }
-    
-    .message {
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: flex-start;
-    }
-    
-    .message.user {
-      justify-content: flex-end;
-    }
-    
-    .message-content {
-      max-width: 80%;
-      padding: 0.75rem;
-      border-radius: 0.5rem;
-    }
-    
-    .avatar {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 0.5rem;
-    }
-    
-    .user .avatar {
-      margin-right: 0;
-      margin-left: 0.5rem;
-    }
-    
-    .recording-indicator {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.25rem;
-      margin-top: 0.5rem;
-    }
-    
-    .recording-bar {
-      width: 0.25rem;
-      background-color: #f87171;
-      border-radius: 1rem;
-      animation: pulse 1s infinite;
-    }
-    
-    .recording-bar:nth-child(1) { height: 0.5rem; animation-delay: 0s; }
-    .recording-bar:nth-child(2) { height: 0.75rem; animation-delay: 0.1s; }
-    .recording-bar:nth-child(3) { height: 1rem; animation-delay: 0.2s; }
-    .recording-bar:nth-child(4) { height: 0.75rem; animation-delay: 0.3s; }
-    .recording-bar:nth-child(5) { height: 0.5rem; animation-delay: 0.4s; }
-    
-    /* Service section styles */
-    .service-section {
-      display: block;
-      padding-top: 80px; /* Account for fixed navbar */
-      min-height: 100vh;
-    }
-    
-    /* Navbar styles */
-    .navbar {
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .navbar.scrolled {
-      background-color: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-    
-    /* Glassmorphism */
-    .glass {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-    
-    /* Gradient text */
-    .gradient-text {
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      background-image: linear-gradient(to right, #3b82f6, #6366f1, #8b5cf6);
-    }
-    
-    /* Notification badge */
-    .notification-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      width: 18px;
-      height: 18px;
-      background-color: #ef4444;
-      color: white;
-      border-radius: 50%;
-      font-size: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    /* Progress bar */
-    .progress-bar {
-      height: 6px;
-      background-color: #e2e8f0;
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 3px;
-      transition: width 0.5s ease;
-    }
-    
-    /* Tooltip */
-    .tooltip {
-      position: relative;
-    }
-    
-    .tooltip:hover .tooltip-text {
-      visibility: visible;
-      opacity: 1;
-    }
-    
-    .tooltip-text {
-      visibility: hidden;
-      opacity: 0;
-      width: 120px;
-      background-color: #1e293b;
-      color: white;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      transition: opacity 0.3s;
-    }
-    
-    .tooltip-text::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: #1e293b transparent transparent transparent;
-    }
-    
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    ::-webkit-scrollbar-track {
-      background: #f1f5f9;
-      border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
-    
-    /* Loader animation */
-    .loader {
-      width: 48px;
-      height: 48px;
-      border: 5px solid #FFF;
-      border-bottom-color: transparent;
-      border-radius: 50%;
-      display: inline-block;
-      box-sizing: border-box;
-      animation: rotation 1s linear infinite;
-    }
-
-    @keyframes rotation {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    
-    /* Ripple effect */
-    .ripple {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .ripple:after {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
-      background-repeat: no-repeat;
-      background-position: 50%;
-      transform: scale(10, 10);
-      opacity: 0;
-      transition: transform .5s, opacity 1s;
-    }
-    
-    .ripple:active:after {
-      transform: scale(0, 0);
-      opacity: .3;
-      transition: 0s;
-    }
-    
-    /* Animated background */
-    .animated-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-    
-    .animated-bg-shape {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      animation: float 15s infinite;
-      z-index: 0;
-    }
-    
-    /* Stats counter */
-    .stats-counter {
-      font-variant-numeric: tabular-nums;
-      transition: all 0.3s ease;
-    }
-    
-    /* Feature icon */
-    .feature-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 0.75rem;
-      margin-bottom: 1rem;
-    }
-    
-    /* Testimonial card */
-    .testimonial-card {
-      transition: all 0.3s ease;
-    }
-    
-    .testimonial-card:hover {
-      transform: translateY(-5px);
-    }
-    
-    /* Accessibility focus styles */
-    a:focus, button:focus, input:focus, select:focus, textarea:focus {
-      outline: 2px solid #3b82f6;
-      outline-offset: 2px;
-    }
-    
-    /* Skip to content link for accessibility */
-    .skip-to-content {
-      position: absolute;
-      left: -9999px;
-      z-index: 999;
-      padding: 1em;
-      background-color: white;
-      color: black;
-      opacity: 0;
-    }
-    
-    .skip-to-content:focus {
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 1;
-    }
-    
-    /* Active nav link */
-    .nav-link.active {
-      position: relative;
-    }
-    
-    .nav-link.active::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background-color: currentColor;
-    }
-    
-    /* Preloader */
-    .preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #0f172a;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-    
-    .preloader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-    
-    /* Pulse animation for SOS button */
-    .pulse-animation {
-      animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-    }
-    
-    @keyframes pulse-ring {
-      0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-      }
-      70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-      }
-      100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-      }
-    }
-    
-    /* Chatbot typing animation */
-    @keyframes typing {
-      0% { width: 0 }
-      100% { width: 100% }
-    }
-    
-    .typing-animation {
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      animation: typing 2s steps(40, end);
-    }
-    
-    /* Floating action button */
-    .floating-action-button {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 50;
-      width: 3.5rem;
-      height: 3.5rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-    }
-    
-    .floating-action-button:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
-    
-    /* Backdrop blur for modals */
-    .backdrop-blur {
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-    
-    /* Shimmer loading effect */
-    .shimmer {
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
-    
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-    
-    /* Responsive font sizes */
-    @media (max-width: 640px) {
-      h1 { font-size: 2rem !important; }
-      h2 { font-size: 1.5rem !important; }
-      h3 { font-size: 1.25rem !important; }
-    }
   </style>
 </head>
 <body class="bg-slate-50">
-  <!-- Skip to content link for accessibility -->
-  <a href="#main-content" class="skip-to-content">Skip to content</a>
-  
-  <!-- Preloader -->
-  <div id="preloader" class="preloader">
-    <div class="flex flex-col items-center">
-      <span class="loader"></span>
-      <p class="text-white mt-4">Loading AI Citizen Helpline...</p>
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-hero">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 overflow-hidden" id="animated-bg">
+      <!-- JS will add animated elements here -->
     </div>
-  </div>
-  
-  <!-- Navbar -->
-  <nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50 py-4 px-6">
-    <div class="container mx-auto">
-      <div class="flex items-center justify-between">
-        <a href="#home" class="flex items-center">
-          <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
-            <i class="fas fa-robot text-white"></i>
-          </div>
-          <span class="text-2xl font-bold text-blue-600">AI Citizen Helpline</span>
-        </a>
-        
-        <div class="hidden md:flex items-center space-x-8">
-          <a href="#home" class="nav-link text-slate-700 hover:text-blue-600 font-medium transition-colors">Home</a>
-          <a href="#government" class="nav-link text-slate-700 hover:text-blue-600 font-medium transition-colors">Government</a>
-          <a href="#legal" class="nav-link text-slate-700 hover:text-indigo-600 font-medium transition-colors">Legal</a>
-          <a href="#medical" class="nav-link text-slate-700 hover:text-emerald-600 font-medium transition-colors">Medical</a>
-          <a href="#emergency" class="nav-link text-slate-700 hover:text-rose-600 font-medium transition-colors">Emergency</a>
-          <a href="#contact" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">Contact Us</a>
-        </div>
-        
-        <div class="md:hidden">
-          <button id="mobile-menu-button" class="text-slate-700 hover:text-blue-600" aria-label="Toggle menu">
-            <i class="fas fa-bars text-2xl"></i>
-          </button>
-        </div>
-      </div>
-      
-      <!-- Mobile menu -->
-      <div id="mobile-menu" class="hidden md:hidden mt-4 bg-white rounded-lg shadow-lg p-4">
-        <div class="flex flex-col space-y-3">
-          <a href="#home" class="text-slate-700 hover:text-blue-600 font-medium transition-colors py-2">Home</a>
-          <a href="#government" class="text-slate-700 hover:text-blue-600 font-medium transition-colors py-2">Government</a>
-          <a href="#legal" class="text-slate-700 hover:text-indigo-600 font-medium transition-colors py-2">Legal</a>
-          <a href="#medical" class="text-slate-700 hover:text-emerald-600 font-medium transition-colors py-2">Medical</a>
-          <a href="#emergency" class="text-slate-700 hover:text-rose-600 font-medium transition-colors py-2">Emergency</a>
-          <a href="#contact" class="mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-center">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-  
-  <!-- Main Content -->
-  <main id="main-content">
-    <!-- Home Section -->
-    <section id="home" class="service-section min-h-screen flex items-center overflow-hidden bg-gradient-hero">
-      <!-- Animated background elements -->
-      <div class="animated-bg" id="animated-bg">
-        <!-- JS will add animated elements here -->
-      </div>
-      
-      <!-- Content -->
-      <div class="container mx-auto px-4 relative z-10" id="hero-content">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div class="opacity-0" id="hero-text" data-aos="fade-right">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              24/7 AI Citizen Helpline
-            </h1>
-            <p class="text-xl text-slate-300 mb-8 max-w-xl">
-              AI-powered voice and chat assistance for government services, legal advice, 
-              medical support, and emergency help — available anytime, anywhere.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4">
-              <button class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors group flex items-center ripple">
-                Get Started 
-                <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
-              </button>
-              <a href="#services" class="px-6 py-3 bg-transparent border border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors ripple">
-                Explore Services
-              </a>
-            </div>
-            <div class="flex flex-wrap items-center mt-8 text-slate-300 gap-y-2">
-              <div class="flex items-center mr-6">
-                <i class="fas fa-phone-alt mr-2"></i>
-                <span>Voice-enabled AI</span>
-              </div>
-              <div class="flex items-center mr-6">
-                <i class="fas fa-comment-alt mr-2"></i>
-                <span>Multi-language</span>
-              </div>
-              <div class="flex items-center">
-                <i class="fas fa-shield-alt mr-2"></i>
-                <span>Secure & Private</span>
-              </div>
-            </div>
-            
-            <!-- Stats -->
-            <div class="grid grid-cols-3 gap-4 mt-12 text-center">
-              <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div class="text-2xl font-bold text-white stats-counter" id="users-count">0</div>
-                <div class="text-sm text-slate-300">Active Users</div>
-              </div>
-              <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div class="text-2xl font-bold text-white stats-counter" id="queries-count">0</div>
-                <div class="text-sm text-slate-300">Queries Resolved</div>
-              </div>
-              <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div class="text-2xl font-bold text-white stats-counter" id="satisfaction-count">0</div>
-                <div class="text-sm text-slate-300">Satisfaction Rate</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="relative opacity-0" id="hero-chat" data-aos="fade-left">
-            <div class="relative bg-gradient-to-r from-blue-600/20 to-blue-500/10 rounded-2xl p-6 backdrop-blur-sm border border-white/10 shadow-2xl">
-              <div class="absolute -top-3 -left-3 bg-blue-600 text-white text-xs px-3 py-1 rounded-full">
-                AI Assistant
-              </div>
-              <div class="space-y-4">
-                <div class="bg-white/10 p-4 rounded-lg">
-                  <p class="text-white">How can I help you today?</p>
-                </div>
-                <div class="bg-white/5 p-4 rounded-lg ml-auto max-w-[80%]">
-                  <p class="text-white">I need help with my passport application.</p>
-                </div>
-                <div class="bg-white/10 p-4 rounded-lg">
-                  <p class="text-white">I can guide you through the passport application process. Would you like information on required documents, application fees, or the application procedure?</p>
-                </div>
-                <div class="flex items-center gap-2 mt-4 flex-wrap">
-                  <button class="px-3 py-1 bg-white/5 text-white border border-white/20 hover:bg-white/10 rounded-md text-sm ripple">
-                    Documents
-                  </button>
-                  <button class="px-3 py-1 bg-white/5 text-white border border-white/20 hover:bg-white/10 rounded-md text-sm ripple">
-                    Fees
-                  </button>
-                  <button class="px-3 py-1 bg-white/5 text-white border border-white/20 hover:bg-white/10 rounded-md text-sm ripple">
-                    Procedure
-                  </button>
-                  <button class="px-3 py-1 bg-white/5 text-white border border-white/20 hover:bg-white/10 rounded-md text-sm ripple">
-                    Timeline
-                  </button>
-                </div>
-                <div class="flex items-center gap-2 pt-4 border-t border-white/10">
-                  <button class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-transparent hover:bg-white/10">
-                    <i class="fas fa-microphone"></i>
-                  </button>
-                  <div class="flex-1">
-                    <input 
-                      type="text" 
-                      placeholder="Type your message..." 
-                      class="w-full bg-white/5 border border-white/10 rounded-full px-4 py-2 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                  </div>
-                  <button class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm ripple">
-                    Send
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Decorative elements -->
-            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
-            <div class="absolute -top-10 -left-10 w-40 h-40 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/50">
-        <span class="text-sm mb-2">Scroll to explore</span>
-        <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center scroll-indicator">
-          <div class="w-1.5 h-3 bg-white/50 rounded-full mt-2"></div>
-        </div>
-      </div>
-    </section>
     
-    <!-- Features Section -->
-    <section id="services" class="py-20 bg-gradient-to-b from-slate-50 to-white">
-      <div class="container px-4 mx-auto">
-        <div class="text-center mb-16" data-aos="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
-            AI-Powered Assistance at Your Fingertips
-          </h2>
-          <p class="text-slate-600 max-w-2xl mx-auto">
-            Our 24/7 AI Citizen Helpline provides round-the-clock support through advanced 
-            voice and chat AI technology, making public services more accessible than ever.
+    <!-- Content -->
+    <div class="container mx-auto px-4 relative z-10" id="hero-content">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="opacity-0" id="hero-text">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            24/7 AI Citizen Helpline
+          </h1>
+          <p class="text-xl text-slate-300 mb-8 max-w-xl">
+            AI-powered voice and chat assistance for government services, legal advice, 
+            medical support, and emergency help — available anytime, anywhere.
           </p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <!-- Feature Card 1 -->
-          <div class="service-card bg-white rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="feature-icon bg-blue-100 text-blue-600 mb-4">
-              <i class="fas fa-phone-alt text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">AI Voice Assistant</h3>
-            <p class="text-slate-600">Speak naturally to our AI which responds using advanced Natural Language Processing.</p>
-            <div class="mt-4">
-              <a href="#" class="text-blue-600 hover:text-blue-700 font-medium flex items-center">
-                Learn more <i class="fas fa-arrow-right ml-2 text-sm"></i>
-              </a>
-            </div>
-          </div>
-          
-          <!-- Feature Card 2 -->
-          <div class="service-card bg-white rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="feature-icon bg-indigo-100 text-indigo-600 mb-4">
-              <i class="fas fa-shield-alt text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Grievance Reporting</h3>
-            <p class="text-slate-600">File complaints and track their progress with real-time updates and notifications.</p>
-            <div class="mt-4">
-              <a href="#" class="text-blue-600 hover:text-blue-700 font-medium flex items-center">
-                Learn more <i class="fas fa-arrow-right ml-2 text-sm"></i>
-              </a>
-            </div>
-          </div>
-          
-          <!-- Feature Card 3 -->
-          <div class="service-card bg-white rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="feature-icon bg-emerald-100 text-emerald-600 mb-4">
-              <i class="fas fa-language text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Multi-Language</h3>
-            <p class="text-slate-600">Support for 12+ regional languages and dialects for maximum accessibility.</p>
-            <div class="mt-4">
-              <a href="#" class="text-blue-600 hover:text-blue-700 font-medium flex items-center">
-                Learn more <i class="fas fa-arrow-right ml-2 text-sm"></i>
-              </a>
-            </div>
-          </div>
-          
-          <!-- Feature Card 4 -->
-          <div class="service-card bg-white rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="feature-icon bg-rose-100 text-rose-600 mb-4">
-              <i class="fas fa-exclamation-triangle text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Emergency Response</h3>
-            <p class="text-slate-600">Voice-based emergency reporting with automatic escalation for critical cases.</p>
-            <div class="mt-4">
-              <a href="#" class="text-blue-600 hover:text-blue-700 font-medium flex items-center">
-                Learn more <i class="fas fa-arrow-right ml-2 text-sm"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Additional Features -->
-        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-white p-6 rounded-xl shadow-md" data-aos="fade-up">
-            <div class="flex items-center mb-4">
-              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                <i class="fas fa-lock text-blue-600"></i>
-              </div>
-              <h3 class="font-bold text-lg">Data Security</h3>
-            </div>
-            <p class="text-slate-600">End-to-end encryption ensures your personal information remains secure and private.</p>
-          </div>
-          
-          <div class="bg-white p-6 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="100">
-            <div class="flex items-center mb-4">
-              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                <i class="fas fa-universal-access text-blue-600"></i>
-              </div>
-              <h3 class="font-bold text-lg">Accessibility</h3>
-            </div>
-            <p class="text-slate-600">Designed for users of all abilities with screen reader support and voice navigation.</p>
-          </div>
-          
-          <div class="bg-white p-6 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="200">
-            <div class="flex items-center mb-4">
-              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                <i class="fas fa-history text-blue-600"></i>
-              </div>
-              <h3 class="font-bold text-lg">24/7 Availability</h3>
-            </div>
-            <p class="text-slate-600">Access government, legal, medical, and emergency services anytime, day or night.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- 3D Interactive Element -->
-    <section class="py-16 bg-slate-900 text-white relative overflow-hidden">
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div data-aos="fade-right">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Experience Next-Generation Citizen Support</h2>
-            <p class="text-slate-300 mb-8">
-              Our AI-powered system uses cutting-edge technology to provide instant, accurate assistance
-              for all your government, legal, and medical queries.
-            </p>
-            <div class="space-y-4 mb-8">
-              <div class="flex items-start">
-                <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center mt-1 mr-3 flex-shrink-0">
-                  <i class="fas fa-check text-xs text-white"></i>
-                </div>
-                <p class="text-slate-300">Advanced natural language processing for human-like conversations</p>
-              </div>
-              <div class="flex items-start">
-                <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center mt-1 mr-3 flex-shrink-0">
-                  <i class="fas fa-check text-xs text-white"></i>
-                </div>
-                <p class="text-slate-300">Real-time integration with government databases for accurate information</p>
-              </div>
-              <div class="flex items-start">
-                <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center mt-1 mr-3 flex-shrink-0">
-                  <i class="fas fa-check text-xs text-white"></i>
-                </div>
-                <p class="text-slate-300">Continuous learning system that improves with each interaction</p>
-              </div>
-            </div>
-            <button class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors group flex items-center ripple">
-              Try Demo 
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors group flex items-center">
+              Get Started 
               <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
             </button>
-          </div>
-          <div class="h-[400px] rounded-lg overflow-hidden" id="three-model-container" data-aos="fade-left">
-            <!-- 3D model will be rendered here -->
-            <div class="w-full h-full flex items-center justify-center" id="three-loading">
-              <div class="loader"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-indigo-900/80"></div>
-    </section>
-    
-    <!-- Government Section -->
-    <section id="government" class="service-section py-20 bg-gradient-to-b from-blue-50 to-white">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-12" data-aos="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Government & Bureaucratic Assistance</h2>
-          <p class="text-slate-600 max-w-2xl mx-auto">Navigate complex government processes with ease using our AI assistant.</p>
-        </div>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <!-- Left sidebar -->
-          <div class="lg:col-span-1" data-aos="fade-right">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-900">Services</h3>
-                <p class="text-sm text-slate-500">Browse available government services</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-1">
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-file-alt mr-2 text-sm text-government-primary"></i>
-                    Document Applications
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-upload mr-2 text-sm text-government-primary"></i>
-                    File Complaints
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-clock mr-2 text-sm text-government-primary"></i>
-                    Track Applications
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-search mr-2 text-sm text-government-primary"></i>
-                    Find Government Offices
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-id-card mr-2 text-sm text-government-primary"></i>
-                    Identity Documents
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-home mr-2 text-sm text-government-primary"></i>
-                    Property Services
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-car mr-2 text-sm text-government-primary"></i>
-                    Vehicle Registration
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
-              <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-900">Popular Documents</h3>
-                <p class="text-sm text-slate-500">Frequently requested documents</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-4">
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">Passport Application</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">View</button>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">Voter ID Registration</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">View</button>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">Driving License Renewal</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">View</button>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">Property Registration</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">View</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Application Status -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
-              <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-900">Application Status</h3>
-                <p class="text-sm text-slate-500">Track your recent applications</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-6">
-                  <div>
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="font-medium text-slate-900">Passport Application</span>
-                      <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full">In Progress</span>
-                    </div>
-                    <div class="progress-bar">
-                      <div class="progress-bar-fill bg-yellow-500" style="width: 65%"></div>
-                    </div>
-                    <div class="flex justify-between mt-1 text-xs text-slate-500">
-                      <span>Submitted: 15 May</span>
-                      <span>Est. Completion: 30 May</span>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="font-medium text-slate-900">Driving License</span>
-                      <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">Approved</span>
-                    </div>
-                    <div class="progress-bar">
-                      <div class="progress-bar-fill bg-green-500" style="width: 100%"></div>
-                    </div>
-                    <div class="flex justify-between mt-1 text-xs text-slate-500">
-                      <span>Submitted: 2 Apr</span>
-                      <span>Completed: 20 Apr</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Main content area -->
-          <div class="lg:col-span-2" data-aos="fade-left">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <!-- Chat header -->
-              <div class="bg-government-primary text-white p-4">
-                <div class="flex items-center">
-                  <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                    <i class="fas fa-robot text-xl"></i>
-                  </div>
-                  <div>
-                    <h3 class="font-bold">Government Services Assistant</h3>
-                    <p class="text-sm text-blue-100">Online • 24/7 Support</p>
-                  </div>
-                  <div class="ml-auto flex items-center">
-                    <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-white mr-2 tooltip">
-                      <i class="fas fa-volume-up"></i>
-                      <span class="tooltip-text">Toggle voice</span>
-                    </button>
-                    <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-white tooltip">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <span class="tooltip-text">More options</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Chat messages -->
-              <div class="chat-container bg-white rounded-lg overflow-hidden">
-                <div class="chat-messages" id="government-chat-messages">
-                  <div class="message bot">
-                    <div class="avatar bg-government-secondary text-government-primary">
-                      <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="message-content bg-slate-100">
-                      <p>Hello! I'm your Government Services Assistant. How can I help you today?</p>
-                      <p class="text-xs mt-1 opacity-70">10:30 AM</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Quick replies -->
-                <div class="p-2 border-t border-slate-200">
-                  <div class="flex gap-2 overflow-x-auto pb-2">
-                    <button class="government-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Passport Application
-                    </button>
-                    <button class="government-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Voter ID
-                    </button>
-                    <button class="government-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Driving License
-                    </button>
-                    <button class="government-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Property Registration
-                    </button>
-                    <button class="government-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Tax Filing
-                    </button>
-                  </div>
-                </div>
-                
-                <!-- Chat input -->
-                <div class="p-4 border-t border-slate-200">
-                  <div class="flex items-center gap-2">
-                    <button class="government-mic-button w-10 h-10 flex items-center justify-center rounded-full border border-slate-300 hover:bg-slate-100 ripple">
-                      <i class="fas fa-microphone"></i>
-                    </button>
-                    <input
-                      id="government-chat-input"
-                      type="text"
-                      placeholder="Type your message..."
-                      class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-government-primary focus:border-government-primary"
-                    >
-                    <button id="government-send-button" class="w-10 h-10 flex items-center justify-center rounded-full bg-government-primary text-white hover:bg-blue-700 ripple">
-                      <i class="fas fa-paper-plane"></i>
-                    </button>
-                  </div>
-                  
-                  <div id="government-recording-indicator" class="recording-indicator hidden">
-                    <p class="text-sm text-red-600">Listening...</p>
-                    <div class="flex items-center gap-1 mt-1">
-                      <div class="recording-bar h-4"></div>
-                      <div class="recording-bar h-6"></div>
-                      <div class="recording-bar h-3"></div>
-                      <div class="recording-bar h-5"></div>
-                      <div class="recording-bar h-2"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Government Services Info -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-lg font-bold text-slate-900 mb-3">Recent Updates</h3>
-                <div class="space-y-4">
-                  <div class="flex items-start">
-                    <div class="w-2 h-2 rounded-full bg-blue-600 mt-2 mr-2"></div>
-                    <div>
-                      <p class="text-slate-700">New passport application process launched</p>
-                      <p class="text-xs text-slate-500">May 15, 2023</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-2 h-2 rounded-full bg-blue-600 mt-2 mr-2"></div>
-                    <div>
-                      <p class="text-slate-700">Property tax deadline extended to June 30</p>
-                      <p class="text-xs text-slate-500">May 10, 2023</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-2 h-2 rounded-full bg-blue-600 mt-2 mr-2"></div>
-                    <div>
-                      <p class="text-slate-700">New digital signature service for business registration</p>
-                      <p class="text-xs text-slate-500">May 5, 2023</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-lg font-bold text-slate-900 mb-3">Upcoming Events</h3>
-                <div class="space-y-4">
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-calendar-day"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Public Hearing on Urban Development</p>
-                      <p class="text-sm text-slate-500">May 25, 2023 • 10:00 AM</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-calendar-day"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Digital Literacy Workshop</p>
-                      <p class="text-sm text-slate-500">June 5, 2023 • 2:00 PM</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-calendar-day"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Town Hall Meeting</p>
-                      <p class="text-sm text-slate-500">June 12, 2023 • 6:00 PM</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Legal Section -->
-    <section id="legal" class="service-section py-20 bg-gradient-to-b from-indigo-50 to-white">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-12" data-aos="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Legal Assistance</h2>
-          <p class="text-slate-600 max-w-2xl mx-auto">Get instant legal guidance and connect with professional services when needed.</p>
-        </div>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <!-- Left sidebar -->
-          <div class="lg:col-span-1" data-aos="fade-right">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-900">Legal Services</h3>
-                <p class="text-sm text-slate-500">Browse available legal assistance</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-1">
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-balance-scale mr-2 text-sm text-legal-primary"></i>
-                    Consumer Rights
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-users mr-2 text-sm text-legal-primary"></i>
-                    Family Law
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-file-contract mr-2 text-sm text-legal-primary"></i>
-                    Contract Law
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-book-open mr-2 text-sm text-legal-primary"></i>
-                    Legal Resources
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-gavel mr-2 text-sm text-legal-primary"></i>
-                    Property Law
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-briefcase mr-2 text-sm text-legal-primary"></i>
-                    Employment Law
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-landmark mr-2 text-sm text-legal-primary"></i>
-                    Constitutional Law
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
-              <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-900">Legal Document Templates</h3>
-                <p class="text-sm text-slate-500">Common legal documents</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-4">
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">Rental Agreement</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">Download</button>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">Power of Attorney</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">Download</button>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">Will Template</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">Download</button>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">Affidavit Format</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">Download</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Legal Resources -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
-              <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-900">Legal Resources</h3>
-                <p class="text-sm text-slate-500">Helpful legal information</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-4">
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-indigo-100 text-indigo-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-book"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Consumer Protection Act</p>
-                      <p class="text-sm text-slate-500">Complete guide with case references</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-indigo-100 text-indigo-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-book"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Family Law Handbook</p>
-                      <p class="text-sm text-slate-500">Marriage, divorce, and custody information</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-indigo-100 text-indigo-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-book"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Property Law Guide</p>
-                      <p class="text-sm text-slate-500">Property rights and dispute resolution</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Main content area -->
-          <div class="lg:col-span-2" data-aos="fade-left">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <!-- Chat header -->
-              <div class="bg-legal-primary text-white p-4">
-                <div class="flex items-center">
-                  <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                    <i class="fas fa-balance-scale text-xl"></i>
-                  </div>
-                  <div>
-                    <h3 class="font-bold">Legal Assistant</h3>
-                    <p class="text-sm text-indigo-100">Online • 24/7 Support</p>
-                  </div>
-                  <div class="ml-auto flex items-center">
-                    <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-white mr-2 tooltip">
-                      <i class="fas fa-volume-up"></i>
-                      <span class="tooltip-text">Toggle voice</span>
-                    </button>
-                    <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-white tooltip">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <span class="tooltip-text">More options</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Chat messages -->
-              <div class="chat-container bg-white rounded-lg overflow-hidden">
-                <div class="chat-messages" id="legal-chat-messages">
-                  <div class="message bot">
-                    <div class="avatar bg-legal-secondary text-legal-primary">
-                      <i class="fas fa-balance-scale"></i>
-                    </div>
-                    <div class="message-content bg-slate-100">
-                      <p>Hello! I'm your Legal Assistant. I can help with basic legal information and document guidance. How can I assist you today?</p>
-                      <p class="text-xs mt-1 opacity-70">10:30 AM</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Quick replies -->
-                <div class="p-2 border-t border-slate-200">
-                  <div class="flex gap-2 overflow-x-auto pb-2">
-                    <button class="legal-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Rental Agreement
-                    </button>
-                    <button class="legal-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Consumer Rights
-                    </button>
-                    <button class="legal-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Family Law
-                    </button>
-                    <button class="legal-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Contract Disputes
-                    </button>
-                    <button class="legal-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Property Law
-                    </button>
-                  </div>
-                </div>
-                
-                <!-- Chat input -->
-                <div class="p-4 border-t border-slate-200">
-                  <div class="flex items-center gap-2">
-                    <button class="legal-mic-button w-10 h-10 flex items-center justify-center rounded-full border border-slate-300 hover:bg-slate-100 ripple">
-                      <i class="fas fa-microphone"></i>
-                    </button>
-                    <input
-                      id="legal-chat-input"
-                      type="text"
-                      placeholder="Type your message..."
-                      class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-legal-primary focus:border-legal-primary"
-                    >
-                    <button id="legal-send-button" class="w-10 h-10 flex items-center justify-center rounded-full bg-legal-primary text-white hover:bg-indigo-700 ripple">
-                      <i class="fas fa-paper-plane"></i>
-                    </button>
-                  </div>
-                  
-                  <div id="legal-recording-indicator" class="recording-indicator hidden">
-                    <p class="text-sm text-red-600">Listening...</p>
-                    <div class="flex items-center gap-1 mt-1">
-                      <div class="recording-bar h-4"></div>
-                      <div class="recording-bar h-6"></div>
-                      <div class="recording-bar h-3"></div>
-                      <div class="recording-bar h-5"></div>
-                      <div class="recording-bar h-2"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Legal Services Info -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-lg font-bold text-slate-900 mb-3">Find a Lawyer</h3>
-                <p class="text-slate-600 mb-4">Connect with qualified legal professionals in your area.</p>
-                <div class="space-y-4">
-                  <div class="flex">
-                    <select class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-legal-primary focus:border-legal-primary">
-                      <option value="">Select Legal Specialty</option>
-                      <option value="family">Family Law</option>
-                      <option value="property">Property Law</option>
-                      <option value="criminal">Criminal Law</option>
-                      <option value="corporate">Corporate Law</option>
-                      <option value="tax">Tax Law</option>
-                      <option value="immigration">Immigration Law</option>
-                    </select>
-                  </div>
-                  <div class="flex">
-                    <input
-                      type="text"
-                      placeholder="Enter your location"
-                      class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-legal-primary focus:border-legal-primary"
-                    >
-                  </div>
-                  <button class="w-full px-4 py-2 bg-legal-primary text-white rounded-lg hover:bg-indigo-700 transition-colors ripple">
-                    Search Lawyers
-                  </button>
-                </div>
-              </div>
-              
-              <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-lg font-bold text-slate-900 mb-3">Legal Aid Services</h3>
-                <p class="text-slate-600 mb-4">Free or low-cost legal assistance for eligible citizens.</p>
-                <div class="space-y-4">
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-indigo-100 text-indigo-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-hands-helping"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Legal Aid Society</p>
-                      <p class="text-sm text-slate-500">Free legal services for low-income individuals</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-indigo-100 text-indigo-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-university"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Law School Clinics</p>
-                      <p class="text-sm text-slate-500">Legal assistance provided by law students under supervision</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-indigo-100 text-indigo-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-gavel"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Pro Bono Services</p>
-                      <p class="text-sm text-slate-500">Volunteer lawyers providing free legal help</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Medical Section -->
-    <section id="medical" class="service-section py-20 bg-gradient-to-b from-emerald-50 to-white">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-12" data-aos="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Medical & Health Support</h2>
-          <p class="text-slate-600 max-w-2xl mx-auto">Access health information and emergency guidance whenever you need it.</p>
-        </div>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <!-- Left sidebar -->
-          <div class="lg:col-span-1" data-aos="fade-right">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-900">Health Services</h3>
-                <p class="text-sm text-slate-500">Browse available medical assistance</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-1">
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-heartbeat mr-2 text-sm text-medical-primary"></i>
-                    General Health
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-brain mr-2 text-sm text-medical-primary"></i>
-                    Mental Health
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-calendar-alt mr-2 text-sm text-medical-primary"></i>
-                    Appointments
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-user-md mr-2 text-sm text-medical-primary"></i>
-                    Find Doctors
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-pills mr-2 text-sm text-medical-primary"></i>
-                    Medications
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-procedures mr-2 text-sm text-medical-primary"></i>
-                    Emergency Care
-                  </button>
-                  <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-100 flex items-center text-slate-700 ripple">
-                    <i class="fas fa-baby mr-2 text-sm text-medical-primary"></i>
-                    Pediatric Care
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
-              <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-900">Health Resources</h3>
-                <p class="text-sm text-slate-500">Helpful medical information</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-4">
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">First Aid Guide</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">View</button>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">COVID-19 Information</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">View</button>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">Mental Health Resources</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">View</button>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-700">Vaccination Schedule</span>
-                    <button class="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 ripple">View</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Health Tracker -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
-              <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-900">Health Tracker</h3>
-                <p class="text-sm text-slate-500">Monitor your health metrics</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-6">
-                  <div>
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="font-medium text-slate-900">Blood Pressure</span>
-                      <span class="text-sm text-medical-primary">120/80 mmHg</span>
-                    </div>
-                    <div class="progress-bar">
-                      <div class="progress-bar-fill bg-medical-primary" style="width: 70%"></div>
-                    </div>
-                    <div class="flex justify-between mt-1 text-xs text-slate-500">
-                      <span>Last updated: Today</span>
-                      <span>Normal</span>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="font-medium text-slate-900">Heart Rate</span>
-                      <span class="text-sm text-medical-primary">72 bpm</span>
-                    </div>
-                    <div class="progress-bar">
-                      <div class="progress-bar-fill bg-medical-primary" style="width: 65%"></div>
-                    </div>
-                    <div class="flex justify-between mt-1 text-xs text-slate-500">
-                      <span>Last updated: Today</span>
-                      <span>Normal</span>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="font-medium text-slate-900">Sleep</span>
-                      <span class="text-sm text-medical-primary">7.5 hours</span>
-                    </div>
-                    <div class="progress-bar">
-                      <div class="progress-bar-fill bg-medical-primary" style="width: 85%"></div>
-                    </div>
-                    <div class="flex justify-between mt-1 text-xs text-slate-500">
-                      <span>Last updated: Today</span>
-                      <span>Good</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Main content area -->
-          <div class="lg:col-span-2" data-aos="fade-left">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <!-- Chat header -->
-              <div class="bg-medical-primary text-white p-4">
-                <div class="flex items-center">
-                  <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                    <i class="fas fa-stethoscope text-xl"></i>
-                  </div>
-                  <div>
-                    <h3 class="font-bold">Health Assistant</h3>
-                    <p class="text-sm text-emerald-100">Online • 24/7 Support</p>
-                  </div>
-                  <div class="ml-auto flex items-center">
-                    <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-white mr-2 tooltip">
-                      <i class="fas fa-volume-up"></i>
-                      <span class="tooltip-text">Toggle voice</span>
-                    </button>
-                    <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-white tooltip">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <span class="tooltip-text">More options</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Chat messages -->
-              <div class="chat-container bg-white rounded-lg overflow-hidden">
-                <div class="chat-messages" id="medical-chat-messages">
-                  <div class="message bot">
-                    <div class="avatar bg-medical-secondary text-medical-primary">
-                      <i class="fas fa-stethoscope"></i>
-                    </div>
-                    <div class="message-content bg-slate-100">
-                      <p>Hello! I'm your Health Assistant. I can provide general health information and guidance. Note that I'm not a substitute for professional medical advice. How can I help you today?</p>
-                      <p class="text-xs mt-1 opacity-70">10:30 AM</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Quick replies -->
-                <div class="p-2 border-t border-slate-200">
-                  <div class="flex gap-2 overflow-x-auto pb-2">
-                    <button class="medical-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Headache
-                    </button>
-                    <button class="medical-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Fever
-                    </button>
-                    <button class="medical-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Anxiety
-                    </button>
-                    <button class="medical-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      First Aid
-                    </button>
-                    <button class="medical-quick-reply px-3 py-1 text-sm border border-slate-300 rounded-md whitespace-nowrap hover:bg-slate-100 ripple">
-                      Sleep Issues
-                    </button>
-                  </div>
-                </div>
-                
-                <!-- Chat input -->
-                <div class="p-4 border-t border-slate-200">
-                  <div class="flex items-center gap-2">
-                    <button class="medical-mic-button w-10 h-10 flex items-center justify-center rounded-full border border-slate-300 hover:bg-slate-100 ripple">
-                      <i class="fas fa-microphone"></i>
-                    </button>
-                    <input
-                      id="medical-chat-input"
-                      type="text"
-                      placeholder="Type your message..."
-                      class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-medical-primary focus:border-medical-primary"
-                    >
-                    <button id="medical-send-button" class="w-10 h-10 flex items-center justify-center rounded-full bg-medical-primary text-white hover:bg-emerald-700 ripple">
-                      <i class="fas fa-paper-plane"></i>
-                    </button>
-                  </div>
-                  
-                  <div id="medical-recording-indicator" class="recording-indicator hidden">
-                    <p class="text-sm text-red-600">Listening...</p>
-                    <div class="flex items-center gap-1 mt-1">
-                      <div class="recording-bar h-4"></div>
-                      <div class="recording-bar h-6"></div>
-                      <div class="recording-bar h-3"></div>
-                      <div class="recording-bar h-5"></div>
-                      <div class="recording-bar h-2"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Medical Services Info -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-lg font-bold text-slate-900 mb-3">Nearby Hospitals</h3>
-                <p class="text-slate-600 mb-4">Find medical facilities in your area</p>
-                <div class="space-y-4">
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-emerald-100 text-emerald-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-hospital"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">City General Hospital</p>
-                      <p class="text-sm text-slate-500">2.3 km away • Open 24/7</p>
-                      <div class="flex items-center mt-1">
-                        <div class="flex text-yellow-400">
-                          <i class="fas fa-star text-xs"></i>
-                          <i class="fas fa-star text-xs"></i>
-                          <i class="fas fa-star text-xs"></i>
-                          <i class="fas fa-star text-xs"></i>
-                          <i class="fas fa-star-half-alt text-xs"></i>
-                        </div>
-                        <span class="text-xs text-slate-500 ml-1">4.5 (230 reviews)</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-emerald-100 text-emerald-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-hospital"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Memorial Medical Center</p>
-                      <p class="text-sm text-slate-500">3.8 km away • Open 24/7</p>
-                      <div class="flex items-center mt-1">
-                        <div class="flex text-yellow-400">
-                          <i class="fas fa-star text-xs"></i>
-                          <i class="fas fa-star text-xs"></i>
-                          <i class="fas fa-star text-xs"></i>
-                          <i class="fas fa-star text-xs"></i>
-                          <i class="far fa-star text-xs"></i>
-                        </div>
-                        <span class="text-xs text-slate-500 ml-1">4.0 (185 reviews)</span>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="w-full px-4 py-2 bg-medical-primary text-white rounded-lg hover:bg-emerald-700 transition-colors ripple">
-                    View All Hospitals
-                  </button>
-                </div>
-              </div>
-              
-              <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-lg font-bold text-slate-900 mb-3">Health Tips</h3>
-                <div class="space-y-4">
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-emerald-100 text-emerald-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Heart Health</p>
-                      <p class="text-sm text-slate-500">Regular exercise and a balanced diet can significantly reduce the risk of heart disease.</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-emerald-100 text-emerald-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-brain"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Mental Wellness</p>
-                      <p class="text-sm text-slate-500">Practice mindfulness and ensure adequate sleep for better mental health.</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <div class="w-8 h-8 bg-emerald-100 text-emerald-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-apple-alt"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Nutrition</p>
-                      <p class="text-sm text-slate-500">Include a variety of fruits, vegetables, and whole grains in your daily diet.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Emergency Section -->
-    <section id="emergency" class="service-section py-20 bg-gradient-to-b from-rose-50 to-white">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-12" data-aos="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Emergency Helpline</h2>
-          <p class="text-slate-600 max-w-2xl mx-auto">Quick response system for urgent situations with real-time tracking.</p>
-        </div>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <!-- Left sidebar -->
-          <div class="lg:col-span-1" data-aos="fade-right">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <div class="p-6 border-b border-slate-200 bg-emergency-primary text-white">
-                <h3 class="text-xl font-bold">Emergency Services</h3>
-                <p class="text-sm text-rose-100">Immediate assistance for urgent situations</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-3">
-                  <button class="w-full text-left px-4 py-3 rounded-md bg-emergency-secondary hover:bg-rose-100 flex items-center text-rose-700 font-medium ripple">
-                    <i class="fas fa-ambulance mr-3 text-lg"></i>
-                    Medical Emergency
-                  </button>
-                  <button class="w-full text-left px-4 py-3 rounded-md bg-emergency-secondary hover:bg-rose-100 flex items-center text-rose-700 font-medium ripple">
-                    <i class="fas fa-fire-extinguisher mr-3 text-lg"></i>
-                    Fire Emergency
-                  </button>
-                  <button class="w-full text-left px-4 py-3 rounded-md bg-emergency-secondary hover:bg-rose-100 flex items-center text-rose-700 font-medium ripple">
-                    <i class="fas fa-shield-alt mr-3 text-lg"></i>
-                    Police Emergency
-                  </button>
-                  <button class="w-full text-left px-4 py-3 rounded-md bg-emergency-secondary hover:bg-rose-100 flex items-center text-rose-700 font-medium ripple">
-                    <i class="fas fa-exclamation-triangle mr-3 text-lg"></i>
-                    Disaster Response
-                  </button>
-                  <button class="w-full text-left px-4 py-3 rounded-md bg-emergency-secondary hover:bg-rose-100 flex items-center text-rose-700 font-medium ripple">
-                    <i class="fas fa-child mr-3 text-lg"></i>
-                    Child Emergency
-                  </button>
-                  <button class="w-full text-left px-4 py-3 rounded-md bg-emergency-secondary hover:bg-rose-100 flex items-center text-rose-700 font-medium ripple">
-                    <i class="fas fa-car-crash mr-3 text-lg"></i>
-                    Traffic Accident
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
-              <div class="p-6 border-b border-slate-200 bg-emergency-primary text-white">
-                <h3 class="text-xl font-bold">Emergency Contacts</h3>
-                <p class="text-sm text-rose-100">Important numbers for emergencies</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-4">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                      <div class="w-8 h-8 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mr-3">
-                        <i class="fas fa-phone-alt"></i>
-                      </div>
-                      <div>
-                        <p class="font-medium text-slate-900">Emergency Helpline</p>
-                        <p class="text-sm text-slate-500">National Emergency Number</p>
-                      </div>
-                    </div>
-                    <a href="tel:112" class="px-3 py-1 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition-colors ripple">
-                      112
-                    </a>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                      <div class="w-8 h-8 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mr-3">
-                        <i class="fas fa-ambulance"></i>
-                      </div>
-                      <div>
-                        <p class="font-medium text-slate-900">Ambulance</p>
-                        <p class="text-sm text-slate-500">Medical Emergency</p>
-                      </div>
-                    </div>
-                    <a href="tel:108" class="px-3 py-1 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition-colors ripple">
-                      108
-                    </a>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                      <div class="w-8 h-8 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mr-3">
-                        <i class="fas fa-user-shield"></i>
-                      </div>
-                      <div>
-                        <p class="font-medium text-slate-900">Police</p>
-                        <p class="text-sm text-slate-500">Law Enforcement</p>
-                      </div>
-                    </div>
-                    <a href="tel:100" class="px-3 py-1 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition-colors ripple">
-                      100
-                    </a>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                      <div class="w-8 h-8 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mr-3">
-                        <i class="fas fa-fire"></i>
-                      </div>
-                      <div>
-                        <p class="font-medium text-slate-900">Fire</p>
-                        <p class="text-sm text-slate-500">Fire Department</p>
-                      </div>
-                    </div>
-                    <a href="tel:101" class="px-3 py-1 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition-colors ripple">
-                      101
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Emergency Preparedness -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
-              <div class="p-6 border-b border-slate-200">
-                <h3 class="text-xl font-bold text-slate-900">Emergency Preparedness</h3>
-                <p class="text-sm text-slate-500">Be ready for any situation</p>
-              </div>
-              <div class="p-6">
-                <div class="space-y-4">
-                  <a href="#" class="flex items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-                    <div class="w-8 h-8 bg-rose-100 text-rose-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-first-aid"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">First Aid Guide</p>
-                      <p class="text-sm text-slate-500">Basic emergency medical procedures</p>
-                    </div>
-                  </a>
-                  <a href="#" class="flex items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-                    <div class="w-8 h-8 bg-rose-100 text-rose-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-house-damage"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Disaster Preparedness</p>
-                      <p class="text-sm text-slate-500">Earthquake, flood, and storm safety</p>
-                    </div>
-                  </a>
-                  <a href="#" class="flex items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-                    <div class="w-8 h-8 bg-rose-100 text-rose-600 rounded flex items-center justify-center mr-3 flex-shrink-0">
-                      <i class="fas fa-briefcase-medical"></i>
-                    </div>
-                    <div>
-                      <p class="text-slate-700 font-medium">Emergency Kit Checklist</p>
-                      <p class="text-sm text-slate-500">Essential supplies for emergencies</p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Main content area -->
-          <div class="lg:col-span-2" data-aos="fade-left">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <!-- Chat header -->
-              <div class="bg-emergency-primary text-white p-4">
-                <div class="flex items-center">
-                  <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                    <i class="fas fa-exclamation-circle text-xl"></i>
-                  </div>
-                  <div>
-                    <h3 class="font-bold">Emergency Assistant</h3>
-                    <p class="text-sm text-rose-100">Online • 24/7 Support</p>
-                  </div>
-                  <div class="ml-auto flex items-center">
-                    <button class="px-3 py-1 bg-white text-emergency-primary text-sm font-medium rounded-full pulse-animation">
-                      SOS
-                    </button>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Chat messages -->
-              <div class="chat-container bg-white rounded-lg overflow-hidden">
-                <div class="chat-messages" id="emergency-chat-messages">
-                  <div class="message bot">
-                    <div class="avatar bg-emergency-secondary text-emergency-primary">
-                      <i class="fas fa-exclamation-circle"></i>
-                    </div>
-                    <div class="message-content bg-slate-100">
-                      <p>This is the Emergency Assistant. If you're experiencing a life-threatening emergency, please call your local emergency number immediately. How can I assist you with your urgent situation?</p>
-                      <p class="text-xs mt-1 opacity-70">10:30 AM</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Quick replies -->
-                <div class="p-2 border-t border-slate-200">
-                  <div class="flex gap-2 overflow-x-auto pb-2">
-                    <button class="emergency-quick-reply px-3 py-1 text-sm border border-emergency-primary text-emergency-primary rounded-md whitespace-nowrap hover:bg-emergency-secondary ripple">
-                      Medical Emergency
-                    </button>
-                    <button class="emergency-quick-reply px-3 py-1 text-sm border border-emergency-primary text-emergency-primary rounded-md whitespace-nowrap hover:bg-emergency-secondary ripple">
-                      Fire
-                    </button>
-                    <button class="emergency-quick-reply px-3 py-1 text-sm border border-emergency-primary text-emergency-primary rounded-md whitespace-nowrap hover:bg-emergency-secondary ripple">
-                      Crime
-                    </button>
-                    <button class="emergency-quick-reply px-3 py-1 text-sm border border-emergency-primary text-emergency-primary rounded-md whitespace-nowrap hover:bg-emergency-secondary ripple">
-                      Natural Disaster
-                    </button>
-                    <button class="emergency-quick-reply px-3 py-1 text-sm border border-emergency-primary text-emergency-primary rounded-md whitespace-nowrap hover:bg-emergency-secondary ripple">
-                      Traffic Accident
-                    </button>
-                  </div>
-                </div>
-                
-                <!-- Chat input -->
-                <div class="p-4 border-t border-slate-200">
-                  <div class="flex items-center gap-2">
-                    <button class="emergency-mic-button w-10 h-10 flex items-center justify-center rounded-full border border-emergency-primary hover:bg-emergency-secondary text-emergency-primary ripple">
-                      <i class="fas fa-microphone"></i>
-                    </button>
-                    <input
-                      id="emergency-chat-input"
-                      type="text"
-                      placeholder="Describe your emergency..."
-                      class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emergency-primary focus:border-emergency-primary"
-                    >
-                    <button id="emergency-send-button" class="w-10 h-10 flex items-center justify-center rounded-full bg-emergency-primary text-white hover:bg-rose-700 ripple">
-                      <i class="fas fa-paper-plane"></i>
-                    </button>
-                  </div>
-                  
-                  <div id="emergency-recording-indicator" class="recording-indicator hidden">
-                    <p class="text-sm text-red-600">Listening...</p>
-                    <div class="flex items-center gap-1 mt-1">
-                      <div class="recording-bar h-4"></div>
-                      <div class="recording-bar h-6"></div>
-                      <div class="recording-bar h-3"></div>
-                      <div class="recording-bar h-5"></div>
-                      <div class="recording-bar h-2"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Emergency Map -->
-            <div class="mt-6 bg-white rounded-lg shadow-md overflow-hidden">
-              <div class="p-4 bg-emergency-primary text-white">
-                <h3 class="font-bold">Emergency Services Near You</h3>
-                <p class="text-sm text-rose-100">Locate nearby emergency facilities</p>
-              </div>
-              <div class="p-4">
-                <div class="bg-slate-200 rounded-lg h-[300px] relative" id="emergency-map">
-                  <!-- Map will be rendered here -->
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="text-center">
-                      <div class="w-12 h-12 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-md">
-                        <i class="fas fa-map-marker-alt text-emergency-primary text-xl"></i>
-                      </div>
-                      <p class="text-slate-700 font-medium">Emergency Services Map</p>
-                      <p class="text-sm text-slate-500">Enable location services to view nearby facilities</p>
-                      <button class="mt-4 px-4 py-2 bg-emergency-primary text-white rounded-lg hover:bg-rose-700 transition-colors ripple">
-                        Enable Location
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div class="p-3 border border-slate-200 rounded-lg">
-                    <div class="flex items-center">
-                      <div class="w-8 h-8 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mr-2">
-                        <i class="fas fa-hospital"></i>
-                      </div>
-                      <div>
-                        <p class="font-medium text-slate-900">Hospitals</p>
-                        <p class="text-xs text-slate-500">3 nearby</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="p-3 border border-slate-200 rounded-lg">
-                    <div class="flex items-center">
-                      <div class="w-8 h-8 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mr-2">
-                        <i class="fas fa-user-shield"></i>
-                      </div>
-                      <div>
-                        <p class="font-medium text-slate-900">Police Stations</p>
-                        <p class="text-xs text-slate-500">2 nearby</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="p-3 border border-slate-200 rounded-lg">
-                    <div class="flex items-center">
-                      <div class="w-8 h-8 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mr-2">
-                        <i class="fas fa-fire-extinguisher"></i>
-                      </div>
-                      <div>
-                        <p class="font-medium text-slate-900">Fire Stations</p>
-                        <p class="text-xs text-slate-500">1 nearby</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-slate-50">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-16" data-aos="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">What Citizens Say</h2>
-          <p class="text-slate-600 max-w-2xl mx-auto">
-            Hear from people who have used our AI Citizen Helpline to solve their problems.
-          </p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Testimonial 1 -->
-          <div class="testimonial-card bg-white p-6 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="100">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                <i class="fas fa-user text-blue-600"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-slate-900">Rahul Sharma</h3>
-                <p class="text-sm text-slate-500">Delhi</p>
-              </div>
-            </div>
-            <div class="mb-4">
-              <div class="flex text-yellow-400">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-            </div>
-            <p class="text-slate-700 mb-4">
-              "The AI Citizen Helpline made renewing my passport incredibly easy. The voice assistant guided me through the entire process and answered all my questions. Saved me hours of standing in line!"
-            </p>
-            <p class="text-sm text-slate-500">Government Services User • May 2023</p>
-          </div>
-          
-          <!-- Testimonial 2 -->
-          <div class="testimonial-card bg-white p-6 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="200">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                <i class="fas fa-user text-indigo-600"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-slate-900">Priya Patel</h3>
-                <p class="text-sm text-slate-500">Mumbai</p>
-              </div>
-            </div>
-            <div class="mb-4">
-              <div class="flex text-yellow-400">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-            </div>
-            <p class="text-slate-700 mb-4">
-              "I needed help with a rental agreement dispute and the Legal Assistant provided clear guidance on my rights and next steps. The document templates were exactly what I needed. Highly recommended!"
-            </p>
-            <p class="text-sm text-slate-500">Legal Services User • April 2023</p>
-          </div>
-          
-          <!-- Testimonial 3 -->
-          <div class="testimonial-card bg-white p-6 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="300">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mr-4">
-                <i class="fas fa-user text-emerald-600"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-slate-900">Arjun Reddy</h3>
-                <p class="text-sm text-slate-500">Bangalore</p>
-              </div>
-            </div>
-            <div class="mb-4">
-              <div class="flex text-yellow-400">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-            </div>
-            <p class="text-slate-700 mb-4">
-              "When my child had a high fever at night, the Medical Assistant provided immediate guidance on what to do. The nearby hospital locator feature helped us find emergency care quickly. This service is a lifesaver!"
-            </p>
-            <p class="text-sm text-slate-500">Medical Services User • June 2023</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- CTA Section -->
-    <section class="py-20 bg-blue-600 text-white">
-      <div class="container mx-auto px-4 text-center">
-        <div data-aos="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Experience the Future of Citizen Support?</h2>
-          <p class="text-white/80 max-w-2xl mx-auto mb-8">
-            Our AI Citizen Helpline is available 24/7 to assist with government services, legal advice, 
-            medical guidance, and emergency support.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button class="px-6 py-3 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors ripple">
-              Try Demo
-            </button>
-            <a href="#contact" class="px-6 py-3 bg-transparent border border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors ripple">
-              Contact Us
+            <a href="#services" class="px-6 py-3 bg-transparent border border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors">
+              Explore Services
             </a>
           </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-16" data-aos="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Get in Touch</h2>
-          <p class="text-slate-600 max-w-2xl mx-auto">
-            Have questions or feedback? We'd love to hear from you.
-          </p>
+          <div class="flex items-center mt-8 text-slate-300">
+            <i class="fas fa-phone-alt mr-2"></i>
+            <span>Voice-enabled AI assistance</span>
+            <span class="mx-3">•</span>
+            <i class="fas fa-comment-alt mr-2"></i>
+            <span>Multi-language support</span>
+          </div>
         </div>
         
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div data-aos="fade-right">
-            <div class="bg-slate-50 p-8 rounded-xl">
-              <h3 class="text-2xl font-bold text-slate-900 mb-6">Contact Information</h3>
-              <div class="space-y-6">
-                <div class="flex items-start">
-                  <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
-                    <i class="fas fa-map-marker-alt text-blue-600"></i>
-                  </div>
-                  <div>
-                    <p class="font-medium text-slate-900">Address</p>
-                    <p class="text-slate-600">123 AI Plaza, Digital City, Tech Hub</p>
-                  </div>
-                </div>
-                <div class="flex items-start">
-                  <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
-                    <i class="fas fa-phone-alt text-blue-600"></i>
-                  </div>
-                  <div>
-                    <p class="font-medium text-slate-900">Phone</p>
-                    <p class="text-slate-600">+1 (800) AI-HELP</p>
-                  </div>
-                </div>
-                <div class="flex items-start">
-                  <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
-                    <i class="fas fa-envelope text-blue-600"></i>
-                  </div>
-                  <div>
-                    <p class="font-medium text-slate-900">Email</p>
-                    <p class="text-slate-600">support@aihelpline.gov</p>
-                  </div>
-                </div>
-                <div class="flex items-start">
-                  <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
-                    <i class="fas fa-clock text-blue-600"></i>
-                  </div>
-                  <div>
-                    <p class="font-medium text-slate-900">Hours</p>
-                    <p class="text-slate-600">24/7 - Our AI is always available</p>
-                    <p class="text-slate-600">Human support: Mon-Fri, 9am-5pm</p>
-                  </div>
-                </div>
+        <div class="relative opacity-0" id="hero-chat">
+          <div class="relative bg-gradient-to-r from-blue-600/20 to-blue-500/10 rounded-2xl p-6 backdrop-blur-sm border border-white/10 shadow-2xl">
+            <div class="absolute -top-3 -left-3 bg-blue-600 text-white text-xs px-3 py-1 rounded-full">
+              AI Assistant
+            </div>
+            <div class="space-y-4">
+              <div class="bg-white/10 p-4 rounded-lg">
+                <p class="text-white">How can I help you today?</p>
               </div>
-              
-              <div class="mt-8">
-                <h4 class="font-bold text-slate-900 mb-4">Follow Us</h4>
-                <div class="flex space-x-4">
-                  <a href="#" class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" class="w-10 h-10 rounded-full bg-blue-400 text-white flex items-center justify-center hover:bg-blue-500 transition-colors">
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                  <a href="#" class="w-10 h-10 rounded-full bg-pink-600 text-white flex items-center justify-center hover:bg-pink-700 transition-colors">
-                    <i class="fab fa-instagram"></i>
-                  </a>
-                  <a href="#" class="w-10 h-10 rounded-full bg-blue-800 text-white flex items-center justify-center hover:bg-blue-900 transition-colors">
-                    <i class="fab fa-linkedin-in"></i>
-                  </a>
+              <div class="bg-white/5 p-4 rounded-lg ml-auto max-w-[80%]">
+                <p class="text-white">I need help with my passport application.</p>
+              </div>
+              <div class="bg-white/10 p-4 rounded-lg">
+                <p class="text-white">I can guide you through the passport application process. Would you like information on required documents, application fees, or the application procedure?</p>
+              </div>
+              <div class="flex items-center gap-2 mt-4">
+                <button class="px-3 py-1 bg-white/5 text-white border border-white/20 hover:bg-white/10 rounded-md text-sm">
+                  Documents
+                </button>
+                <button class="px-3 py-1 bg-white/5 text-white border border-white/20 hover:bg-white/10 rounded-md text-sm">
+                  Fees
+                </button>
+                <button class="px-3 py-1 bg-white/5 text-white border border-white/20 hover:bg-white/10 rounded-md text-sm">
+                  Procedure
+                </button>
+              </div>
+              <div class="flex items-center gap-2 pt-4 border-t border-white/10">
+                <button class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-transparent hover:bg-white/10">
+                  <i class="fas fa-microphone"></i>
+                </button>
+                <div class="flex-1">
+                  <input 
+                    type="text" 
+                    placeholder="Type your message..." 
+                    class="w-full bg-white/5 border border-white/10 rounded-full px-4 py-2 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
                 </div>
+                <button class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm">
+                  Send
+                </button>
               </div>
             </div>
           </div>
           
-          <div data-aos="fade-left">
-            <div class="bg-white p-8 rounded-xl shadow-md">
-              <h3 class="text-2xl font-bold text-slate-900 mb-6">Send Us a Message</h3>
-              <form>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Name</label>
-                    <input 
-                      type="text" 
-                      id="name" 
-                      class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="Your name"
-                    >
-                  </div>
-                  <div>
-                    <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="Your email"
-                    >
-                  </div>
+          <!-- Decorative elements -->
+          <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/50">
+      <span class="text-sm mb-2">Scroll to explore</span>
+      <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center scroll-indicator">
+        <div class="w-1.5 h-3 bg-white/50 rounded-full mt-2"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section class="py-20 bg-gradient-to-b from-slate-50 to-white" id="features">
+    <div class="container px-4 mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
+          AI-Powered Assistance at Your Fingertips
+        </h2>
+        <p class="text-slate-600 max-w-2xl mx-auto">
+          Our 24/7 AI Citizen Helpline provides round-the-clock support through advanced 
+          voice and chat AI technology, making public services more accessible than ever.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Feature Card 1 -->
+        <div class="service-card bg-white rounded-xl shadow-md p-6">
+          <div class="mb-4">
+            <i class="fas fa-phone-alt text-4xl text-blue-600"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">AI Voice Assistant</h3>
+          <p class="text-slate-600">Speak naturally to our AI which responds using advanced Natural Language Processing.</p>
+        </div>
+        
+        <!-- Feature Card 2 -->
+        <div class="service-card bg-white rounded-xl shadow-md p-6">
+          <div class="mb-4">
+            <i class="fas fa-shield-alt text-4xl text-blue-600"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Grievance Reporting</h3>
+          <p class="text-slate-600">File complaints and track their progress with real-time updates.</p>
+        </div>
+        
+        <!-- Feature Card 3 -->
+        <div class="service-card bg-white rounded-xl shadow-md p-6">
+          <div class="mb-4">
+            <i class="fas fa-language text-4xl text-blue-600"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Multi-Language</h3>
+          <p class="text-slate-600">Support for regional languages and dialects for maximum accessibility.</p>
+        </div>
+        
+        <!-- Feature Card 4 -->
+        <div class="service-card bg-white rounded-xl shadow-md p-6">
+          <div class="mb-4">
+            <i class="fas fa-exclamation-triangle text-4xl text-blue-600"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Emergency Response</h3>
+          <p class="text-slate-600">Voice-based emergency reporting with automatic escalation for critical cases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 3D Interactive Element -->
+  <section class="py-16 bg-slate-900 text-white relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Experience Next-Generation Citizen Support</h2>
+          <p class="text-slate-300 mb-8">
+            Our AI-powered system uses cutting-edge technology to provide instant, accurate assistance
+            for all your government, legal, and medical queries.
+          </p>
+          <button class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors group flex items-center">
+            Try Demo 
+            <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+          </button>
+        </div>
+        <div class="h-[400px] rounded-lg overflow-hidden" id="three-model-container">
+          <!-- 3D model will be rendered here -->
+        </div>
+      </div>
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-indigo-900/80"></div>
+  </section>
+  
+  <!-- Service Sections -->
+  <section id="services" class="py-20 bg-gradient-to-b from-blue-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-last lg:order-first">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Government & Bureaucratic Assistance</h2>
+          <p class="text-slate-600 mb-6">Navigate complex government processes with ease using our AI assistant.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <span class="text-blue-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Filing complaints about public services</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-blue-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Guidance on passport, voter ID, or license application</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-blue-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Status tracking of government documents</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-blue-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Form filling assistance</span>
+            </li>
+          </ul>
+          <a href="services/government.html" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg inline-block">
+            Try Government Assistant
+          </a>
+        </div>
+        <div class="order-first lg:order-last">
+          <div class="relative rounded-xl overflow-hidden shadow-2xl">
+            <img 
+              src="https://placehold.co/600x400/e2e8f0/1e293b?text=Government+Services" 
+              alt="Government Services"
+              class="w-full h-auto"
+            >
+            <div class="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <div class="bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                  <span class="text-sm font-medium text-slate-900">AI Assistant</span>
                 </div>
-                <div class="mb-6">
-                  <label for="subject" class="block text-sm font-medium text-slate-700 mb-1">Subject</label>
-                  <input 
-                    type="text" 
-                    id="subject" 
-                    class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Message subject"
-                  >
-                </div>
-                <div class="mb-6">
-                  <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Message</label>
-                  <textarea 
-                    id="message" 
-                    rows="5" 
-                    class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Your message"
-                  ></textarea>
-                </div>
-                <button type="submit" class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors ripple">
-                  Send Message
-                </button>
-              </form>
+                <p class="text-slate-700 text-sm">
+                  "How can I assist you with government services today?"
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+  
+  <section class="py-20 bg-gradient-to-b from-indigo-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="relative rounded-xl overflow-hidden shadow-2xl">
+            <img 
+              src="https://placehold.co/600x400/e2e8f0/1e293b?text=Legal+Services" 
+              alt="Legal Services"
+              class="w-full h-auto"
+            >
+            <div class="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <div class="bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-3 h-3 rounded-full bg-indigo-500"></div>
+                  <span class="text-sm font-medium text-slate-900">AI Assistant</span>
+                </div>
+                <p class="text-slate-700 text-sm">
+                  "How can I assist you with legal advice today?"
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Legal Assistance</h2>
+          <p class="text-slate-600 mb-6">Get instant legal guidance and connect with professional services when needed.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <span class="text-indigo-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Basic legal advice on consumer rights, family law, and contracts</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-indigo-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">AI-powered document guidance (affidavit templates, legal forms)</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-indigo-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Connecting users with legal aid services</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-indigo-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Legal document preparation assistance</span>
+            </li>
+          </ul>
+          <a href="services/legal.html" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg inline-block">
+            Try Legal Assistant
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="py-20 bg-gradient-to-b from-emerald-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-last lg:order-first">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Medical & Health Support</h2>
+          <p class="text-slate-600 mb-6">Access health information and emergency guidance whenever you need it.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <span class="text-emerald-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">General health-related queries (symptoms, first-aid guidance)</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-emerald-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Mental health assistance (AI-driven conversational therapy)</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-emerald-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Appointment booking for hospitals and clinics</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-emerald-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Medication reminders and information</span>
+            </li>
+          </ul>
+          <a href="services/medical.html" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg inline-block">
+            Try Medical Assistant
+          </a>
+        </div>
+        <div class="order-first lg:order-last">
+          <div class="relative rounded-xl overflow-hidden shadow-2xl">
+            <img 
+              src="https://placehold.co/600x400/e2e8f0/1e293b?text=Medical+Services" 
+              alt="Medical Services"
+              class="w-full h-auto"
+            >
+            <div class="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <div class="bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                  <span class="text-sm font-medium text-slate-900">AI Assistant</span>
+                </div>
+                <p class="text-slate-700 text-sm">
+                  "How can I assist you with health concerns today?"
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="py-20 bg-gradient-to-b from-rose-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="relative rounded-xl overflow-hidden shadow-2xl">
+            <img 
+              src="https://placehold.co/600x400/e2e8f0/1e293b?text=Emergency+Services" 
+              alt="Emergency Services"
+              class="w-full h-auto"
+            >
+            <div class="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <div class="bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                  <span class="text-sm font-medium text-slate-900">AI Assistant</span>
+                </div>
+                <p class="text-slate-700 text-sm">
+                  "I'm here to help with your emergency. What's your situation?"
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Emergency Helpline</h2>
+          <p class="text-slate-600 mb-6">Quick response system for urgent situations with real-time tracking.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <span class="text-rose-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">AI-based voice SOS for domestic violence, accidents, or distress cases</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-rose-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Real-time location tracking and connecting to authorities</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-rose-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Automated alerts to emergency services</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-rose-500 mr-2 mt-1">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text-slate-700">Follow-up support and case tracking</span>
+            </li>
+          </ul>
+          <a href="services/emergency.html" class="px-6 py-3 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-lg inline-block">
+            Try Emergency Assistant
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- How It Works -->
+  <section class="py-20 bg-slate-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900">How It Works</h2>
+        <p class="text-slate-600 max-w-2xl mx-auto">
+          Our AI-powered helpline makes getting assistance simple and efficient.
+          Here's how the process works from start to finish.
+        </p>
+      </div>
+      
+      <div class="relative">
+        <!-- Connection line -->
+        <div class="absolute top-1/2 left-0 right-0 h-1 bg-slate-200 -translate-y-1/2 hidden md:block"></div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+          <!-- Step 1 -->
+          <div class="flex flex-col items-center text-center">
+            <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-lg">
+              <i class="fas fa-phone-alt text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-slate-900">Initiate Contact</h3>
+            <p class="text-slate-600">Call the helpline or use the chat interface to connect with our AI assistant.</p>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="flex flex-col items-center text-center">
+            <div class="bg-indigo-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-lg">
+              <i class="fas fa-comment-alt text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-slate-900">AI Processes Request</h3>
+            <p class="text-slate-600">Our AI analyzes your query using Natural Language Understanding to extract intent and context.</p>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="flex flex-col items-center text-center">
+            <div class="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-lg">
+              <i class="fas fa-file-check text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-slate-900">Receive Assistance</h3>
+            <p class="text-slate-600">Get immediate help or be connected to a human agent for complex cases.</p>
+          </div>
+          
+          <!-- Step 4 -->
+          <div class="flex flex-col items-center text-center">
+            <div class="bg-violet-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-lg">
+              <i class="fas fa-arrow-right text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-slate-900">Track Progress</h3>
+            <p class="text-slate-600">Follow your case with real-time updates via SMS, WhatsApp, or in-app notifications.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-blue-600 text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Experience the Future of Citizen Support?</h2>
+      <p class="text-white/80 max-w-2xl mx-auto mb-8">
+        Our AI Citizen Helpline is available 24/7 to assist with government services, legal advice, 
+        medical guidance, and emergency support.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="px-6 py-3 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors">
+          Try Demo
+        </button>
+        <a href="contact.html" class="px-6 py-3 bg-transparent border border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
   
   <!-- Footer -->
   <footer class="bg-slate-900 text-white py-12">
@@ -2375,10 +635,10 @@
         <div>
           <h3 class="text-lg font-semibold mb-4">Services</h3>
           <ul class="space-y-2">
-            <li><a href="#government" class="text-slate-400 hover:text-white transition-colors">Government Assistance</a></li>
-            <li><a href="#legal" class="text-slate-400 hover:text-white transition-colors">Legal Support</a></li>
-            <li><a href="#medical" class="text-slate-400 hover:text-white transition-colors">Medical Help</a></li>
-            <li><a href="#emergency" class="text-slate-400 hover:text-white transition-colors">Emergency Services</a></li>
+            <li><a href="services/government.html" class="text-slate-400 hover:text-white transition-colors">Government Assistance</a></li>
+            <li><a href="services/legal.html" class="text-slate-400 hover:text-white transition-colors">Legal Support</a></li>
+            <li><a href="services/medical.html" class="text-slate-400 hover:text-white transition-colors">Medical Help</a></li>
+            <li><a href="services/emergency.html" class="text-slate-400 hover:text-white transition-colors">Emergency Services</a></li>
           </ul>
         </div>
         <div>
@@ -2414,104 +674,12 @@
     </div>
   </footer>
   
-  <!-- Floating Action Button -->
-  <button class="floating-action-button bg-blue-600 text-white hover:bg-blue-700" id="back-to-top" aria-label="Back to top">
-    <i class="fas fa-arrow-up"></i>
-  </button>
-  
   <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // Initialize AOS animation library
+    // Hero section animations
     document.addEventListener('DOMContentLoaded', function() {
-      // Hide preloader when page is loaded
-      const preloader = document.getElementById('preloader');
-      if (preloader) {
-        setTimeout(() => {
-          preloader.classList.add('hidden');
-        }, 1000);
-      }
-      
-      // Initialize AOS
-      AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true
-      });
-      
-      // Navbar elements
-      const navbar = document.getElementById('navbar');
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const navLinks = document.querySelectorAll('.nav-link');
-      
-      // Back to top button
-      const backToTopButton = document.getElementById('back-to-top');
-      
-      // Stats counters
-      const usersCount = document.getElementById('users-count');
-      const queriesCount = document.getElementById('queries-count');
-      const satisfactionCount = document.getElementById('satisfaction-count');
-      
-      // Navbar scroll effect
-      window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-        
-        // Show/hide back to top button
-        if (window.scrollY > 300) {
-          backToTopButton.classList.add('opacity-100');
-          backToTopButton.classList.remove('opacity-0');
-        } else {
-          backToTopButton.classList.add('opacity-0');
-          backToTopButton.classList.remove('opacity-100');
-        }
-        
-        // Update active nav link based on scroll position
-        const scrollPosition = window.scrollY + 100;
-        
-        document.querySelectorAll('section').forEach(section => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.offsetHeight;
-          const sectionId = section.getAttribute('id');
-          
-          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            navLinks.forEach(link => {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === `#${sectionId}`) {
-                link.classList.add('active');
-              }
-            });
-          }
-        });
-      });
-      
-      // Mobile menu toggle
-      mobileMenuButton.addEventListener('click', function() {
-        mobileMenu.classList.toggle('hidden');
-      });
-      
-      // Close mobile menu when clicking on a link
-      const mobileLinks = mobileMenu.querySelectorAll('a');
-      mobileLinks.forEach(link => {
-        link.addEventListener('click', function() {
-          mobileMenu.classList.add('hidden');
-        });
-      });
-      
-      // Back to top button click handler
-      backToTopButton.addEventListener('click', function() {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
-      
-      // Hero section animations
+      // Animate hero content
       const heroText = document.getElementById('hero-text');
       const heroChat = document.getElementById('hero-chat');
       
@@ -2559,54 +727,13 @@
         }
       });
       
-      // Animate stats counters
-      function animateCounter(element, target, duration) {
-        if (!element) return;
-        
-        let start = 0;
-        const increment = target / (duration / 16);
-        
-        const timer = setInterval(() => {
-          start += increment;
-          element.textContent = Math.floor(start).toLocaleString();
-          
-          if (start >= target) {
-            element.textContent = target.toLocaleString();
-            clearInterval(timer);
-          }
-        }, 16);
-      }
-      
-      // Start counter animations when they come into view
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (entry.target === usersCount) animateCounter(usersCount, 250000, 2000);
-            if (entry.target === queriesCount) animateCounter(queriesCount, 1500000, 2000);
-            if (entry.target === satisfactionCount) animateCounter(satisfactionCount, 98, 2000);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.5 });
-      
-      if (usersCount) observer.observe(usersCount);
-      if (queriesCount) observer.observe(queriesCount);
-      if (satisfactionCount) observer.observe(satisfactionCount);
-      
       // Initialize 3D model
       initThreeModel();
-      
-      // Setup chatbot functionality for all service sections
-      setupChatbot('government', '#3b82f6');
-      setupChatbot('legal', '#6366f1');
-      setupChatbot('medical', '#10b981');
-      setupChatbot('emergency', '#ef4444');
     });
     
     // 3D Model
     function initThreeModel() {
       const container = document.getElementById('three-model-container');
-      const loadingElement = document.getElementById('three-loading');
       
       if (!container) return;
       
@@ -2623,11 +750,6 @@
       renderer.setSize(container.clientWidth, container.clientHeight);
       container.appendChild(renderer.domElement);
       
-      // Hide loading indicator
-      if (loadingElement) {
-        loadingElement.style.display = 'none';
-      }
-      
       // Lights
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
       scene.add(ambientLight);
@@ -2641,7 +763,7 @@
       scene.add(group);
       
       // Create floating spheres representing different services
-      const colors = [0x3b82f6, 0x6366f1, 0x10b981, 0xef4444];
+      const colors = [0x3b82f6, 0x6366f1, 0x8b5cf6, 0xec4899];
       const spheres = [];
       
       for (let i = 0; i < 4; i++) {
@@ -2693,28 +815,6 @@
       const core = new THREE.Mesh(coreGeometry, coreMaterial);
       group.add(core);
       
-      // Add particles for a more dynamic effect
-      const particlesGeometry = new THREE.BufferGeometry();
-      const particlesCount = 200;
-      
-      const posArray = new Float32Array(particlesCount * 3);
-      
-      for(let i = 0; i < particlesCount * 3; i++) {
-        posArray[i] = (Math.random() - 0.5) * 10;
-      }
-      
-      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-      
-      const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.02,
-        color: 0xffffff,
-        transparent: true,
-        opacity: 0.5
-      });
-      
-      const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-      scene.add(particlesMesh);
-      
       // Animation loop
       const animate = () => {
         requestAnimationFrame(animate);
@@ -2732,9 +832,6 @@
         const scale = 1 + Math.sin(Date.now() * 0.002) * 0.05;
         core.scale.set(scale, scale, scale);
         
-        // Rotate particles
-        particlesMesh.rotation.y += 0.0005;
-        
         renderer.render(scene, camera);
       };
       
@@ -2748,249 +845,6 @@
         camera.updateProjectionMatrix();
         renderer.setSize(container.clientWidth, container.clientHeight);
       });
-      
-      // Make the 3D model interactive
-      let isDragging = false;
-      let previousMousePosition = {
-        x: 0,
-        y: 0
-      };
-      
-      container.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        previousMousePosition = {
-          x: e.clientX,
-          y: e.clientY
-        };
-      });
-      
-      container.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-          const deltaMove = {
-            x: e.clientX - previousMousePosition.x,
-            y: e.clientY - previousMousePosition.y
-          };
-          
-          group.rotation.y += deltaMove.x * 0.01;
-          group.rotation.x += deltaMove.y * 0.01;
-          
-          previousMousePosition = {
-            x: e.clientX,
-            y: e.clientY
-          };
-        }
-      });
-      
-      container.addEventListener('mouseup', () => {
-        isDragging = false;
-      });
-      
-      container.addEventListener('mouseleave', () => {
-        isDragging = false;
-      });
-    }
-    
-    // Chatbot functionality
-    function setupChatbot(serviceType, primaryColor) {
-      const chatMessages = document.getElementById(`${serviceType}-chat-messages`);
-      const chatInput = document.getElementById(`${serviceType}-chat-input`);
-      const sendButton = document.getElementById(`${serviceType}-send-button`);
-      const micButton = document.querySelector(`.${serviceType}-mic-button`);
-      const recordingIndicator = document.getElementById(`${serviceType}-recording-indicator`);
-      const quickReplies = document.querySelectorAll(`.${serviceType}-quick-reply`);
-      
-      if (!chatMessages || !chatInput || !sendButton) return;
-      
-      // Sample responses for demo purposes
-      const governmentResponses = [
-        "To apply for a passport, you'll need proof of identity, address proof, and birth certificate. Would you like me to guide you through the online application process?",
-        "For voter ID registration, you need to fill Form 6. You can apply online through the Election Commission website. Would you like me to help you with that?",
-        "Your driving license can be renewed online through the transport department portal. You'll need your existing license details and address proof. Shall I guide you through the steps?",
-        "Property registration requires documents like sale deed, identity proof, and property tax receipts. The process varies by state. Which state are you inquiring about?",
-        "For tax filing, you'll need your income statements, investment proofs, and bank statements. The deadline for filing is July 31st. Would you like me to explain the process?"
-      ];
-      
-      const legalResponses = [
-        "For a rental agreement, you'll need details like tenant and landlord information, property description, rent amount, security deposit, and lease duration. Would you like me to provide a template?",
-        "In consumer rights cases, you can file a complaint with the Consumer Forum if the value of goods or services is up to ₹1 crore. Would you like guidance on filing a consumer complaint?",
-        "For family law matters like divorce, the process varies by personal law. Under the Hindu Marriage Act, you can file for divorce after one year of marriage. Would you like more specific information?",
-        "For contract disputes, first check if there's a dispute resolution clause in your agreement. You may need to send a legal notice before proceeding to court. Would you like a legal notice template?",
-        "In property disputes, you should first verify all property documents and ownership records. Would you like me to explain the legal remedies available to you?"
-      ];
-      
-      const medicalResponses = [
-        "For headaches, common causes include stress, dehydration, lack of sleep, or eye strain. Try drinking water, resting in a dark room, and taking over-the-counter pain relievers if needed. If headaches are severe or persistent, please consult a doctor.",
-        "Fever is often a sign that your body is fighting an infection. For adults, a temperature above 38°C (100.4°F) is considered a fever. Rest, stay hydrated, and take acetaminophen or ibuprofen to reduce fever. Seek medical attention if fever persists for more than 3 days.",
-        "For anxiety management, try deep breathing exercises, progressive muscle relaxation, or mindfulness meditation. Regular exercise and adequate sleep can also help. If anxiety interferes with daily activities, consider speaking with a mental health professional.",
-        "To maintain heart health, focus on a balanced diet low in saturated fats and sodium, regular exercise (aim for 150 minutes of moderate activity weekly), not smoking, limiting alcohol, and managing stress. Regular check-ups are also important.",
-        "For sleep issues, establish a regular sleep schedule, create a relaxing bedtime routine, limit screen time before bed, and ensure your sleeping environment is comfortable. If sleep problems persist, consult a healthcare provider."
-      ];
-      
-      const emergencyResponses = [
-        "For a medical emergency, please call emergency services immediately at 108 or 112. While waiting for help, keep the person still, check breathing and pulse, and perform CPR if you're trained and it's necessary. I'm alerting emergency services to your location.",
-        "In case of fire, evacuate immediately and call fire services at 101. If trapped, stay low to avoid smoke, cover vents to prevent smoke entry, and signal for help from windows. I'm alerting fire services to your location.",
-        "For a crime in progress, ensure your safety first and call police at 100. Note details like descriptions of people, vehicles, and direction of travel if safe to do so. I'm alerting police to your location.",
-        "During a natural disaster, follow evacuation orders immediately. For earthquakes, drop, cover, and hold on. For floods, move to higher ground. For cyclones, stay in a secure building away from windows. I'm alerting disaster response teams to your location.",
-        "For a traffic accident, first ensure everyone's safety and call emergency services at 108 or 100. Exchange information with other drivers involved and take photos of the scene if possible. I'm alerting emergency services to your location."
-      ];
-      
-      let responseMap = {
-        'government': governmentResponses,
-        'legal': legalResponses,
-        'medical': medicalResponses,
-        'emergency': emergencyResponses
-      };
-      
-      // Function to add a message to the chat
-      function addMessage(text, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', sender);
-        
-        const now = new Date();
-        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        
-        if (sender === 'bot') {
-          let iconClass = 'fas fa-robot';
-          if (serviceType === 'legal') iconClass = 'fas fa-balance-scale';
-          if (serviceType === 'medical') iconClass = 'fas fa-stethoscope';
-          if (serviceType === 'emergency') iconClass = 'fas fa-exclamation-circle';
-          
-          messageDiv.innerHTML = `
-            <div class="avatar bg-${serviceType}-secondary text-${serviceType}-primary">
-              <i class="${iconClass}"></i>
-            </div>
-            <div class="message-content bg-slate-100">
-              <p>${text}</p>
-              <p class="text-xs mt-1 opacity-70">${timeString}</p>
-            </div>
-          `;
-        } else {
-          messageDiv.innerHTML = `
-            <div class="message-content" style="background-color: ${primaryColor}; color: white;">
-              <p>${text}</p>
-              <p class="text-xs mt-1 opacity-70">${timeString}</p>
-            </div>
-            <div class="avatar" style="background-color: ${primaryColor}; color: white;">
-              <i class="fas fa-user"></i>
-            </div>
-          `;
-        }
-        
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-      
-      // Function to show typing indicator
-      function showTypingIndicator() {
-        const typingDiv = document.createElement('div');
-        typingDiv.classList.add('message', 'bot', 'typing-indicator-container');
-        
-        let iconClass = 'fas fa-robot';
-        if (serviceType === 'legal') iconClass = 'fas fa-balance-scale';
-        if (serviceType === 'medical') iconClass = 'fas fa-stethoscope';
-        if (serviceType === 'emergency') iconClass = 'fas fa-exclamation-circle';
-        
-        typingDiv.innerHTML = `
-          <div class="avatar bg-${serviceType}-secondary text-${serviceType}-primary">
-            <i class="${iconClass}"></i>
-          </div>
-          <div class="message-content bg-slate-100">
-            <div class="typing-indicator">
-              <div class="typing-dot"></div>
-              <div class="typing-dot"></div>
-              <div class="typing-dot"></div>
-            </div>
-          </div>
-        `;
-        
-        chatMessages.appendChild(typingDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        
-        return typingDiv;
-      }
-      
-      // Function to handle sending a message
-      function sendMessage() {
-        const text = chatInput.value.trim();
-        if (text === '') return;
-        
-        // Add user message
-        addMessage(text, 'user');
-        chatInput.value = '';
-        
-        // Show typing indicator
-        const typingIndicator = showTypingIndicator();
-        
-        // Simulate bot response after a delay
-        setTimeout(() => {
-          // Remove typing indicator
-          typingIndicator.remove();
-          
-          // Add bot response
-          const responses = responseMap[serviceType];
-          const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-          addMessage(randomResponse, 'bot');
-        }, 1500);
-      }
-      
-      // Event listeners
-      sendButton.addEventListener('click', sendMessage);
-      
-      chatInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          sendMessage();
-        }
-      });
-      
-      // Quick replies
-      if (quickReplies) {
-        quickReplies.forEach(button => {
-          button.addEventListener('click', () => {
-            let prefix = "I need help with ";
-            if (serviceType === 'medical') prefix = "What should I do for ";
-            if (serviceType === 'emergency') prefix = "I have an emergency: ";
-            
-            const text = `${prefix}${button.textContent.trim().toLowerCase()}`;
-            chatInput.value = text;
-            sendMessage();
-          });
-        });
-      }
-      
-      // Microphone button
-      if (micButton && recordingIndicator) {
-        let isRecording = false;
-        
-        micButton.addEventListener('click', () => {
-          isRecording = !isRecording;
-          
-          if (isRecording) {
-            micButton.innerHTML = '<i class="fas fa-microphone-slash"></i>';
-            recordingIndicator.classList.remove('hidden');
-            
-            // Simulate voice recognition (in a real app, this would use the Web Speech API)
-            setTimeout(() => {
-              let sampleQuery = "How do I apply for a passport?";
-              if (serviceType === 'legal') sampleQuery = "How do I create a rental agreement?";
-              if (serviceType === 'medical') sampleQuery = "What should I do for a headache?";
-              if (serviceType === 'emergency') sampleQuery = "There's a fire in my building!";
-              
-              chatInput.value = sampleQuery;
-              isRecording = false;
-              micButton.innerHTML = '<i class="fas fa-microphone"></i>';
-              recordingIndicator.classList.add('hidden');
-              
-              // Auto-send the message after voice recognition
-              setTimeout(() => {
-                sendMessage();
-              }, 500);
-            }, 3000);
-          } else {
-            micButton.innerHTML = '<i class="fas fa-microphone"></i>';
-            recordingIndicator.classList.add('hidden');
-          }
-        });
-      }
     }
   </script>
 </body>
