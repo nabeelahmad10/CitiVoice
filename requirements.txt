@@ -1,0 +1,8 @@
+python-dotenv
+Flask 
+Flask-SocketIO 
+SpeechRecognition 
+gTTS 
+requests
+PyAudio
+python-dotenv

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, send_from_directory, request, jsonify
 import requests
 import os
 import tempfile
@@ -26,7 +26,7 @@ tts_queue = queue.Queue()
 current_token = 0
 
 # -----------------------------
-# Mistral API call and streaming
+# Mistral API Call and Streaming
 # -----------------------------
 def get_medical_response(user_input):
     headers = {
@@ -92,7 +92,6 @@ def recognize_speech():
             print("Adjusting for ambient noise...")
             recognizer.adjust_for_ambient_noise(source, duration=1)
             print("Listening for speech (waiting up to 10 sec)...")
-            # Wait for speech for up to 10 seconds
             audio = recognizer.listen(source, timeout=10, phrase_time_limit=10)
             print("Audio captured")
         socketio.emit('listening_status', {'status': False})
@@ -109,7 +108,6 @@ def recognize_speech():
             print(f"Cleared TTS queue ({queue_size} items removed)")
         socketio.emit('stop_audio')
         print("Sent stop_audio signal to client")
-        # Start response streaming for speech input
         thread = threading.Thread(target=stream_response, args=(user_input, current_token))
         thread.daemon = True
         thread.start()
@@ -174,7 +172,7 @@ def tts_worker():
             print(f"Error in TTS worker: {str(e)}")
             try:
                 tts_queue.task_done()
-            except:
+            except Exception:
                 pass
 
 # Start TTS worker thread
@@ -189,9 +187,9 @@ tts_thread.start()
 @app.route('/')
 def index():
     current_dir = os.path.abspath(os.path.dirname(__file__))
-    return send_from_directory(current_dir, "medical.html")
+    # Serve index.html from the same directory
+    return send_from_directory(current_dir, "index.html")
 
-# RESTful endpoint to support text chat via fetch
 @app.route('/generate', methods=['POST'])
 def generate():
     data = request.get_json()
@@ -262,5 +260,5 @@ def handle_disconnect():
 
 if __name__ == '__main__':
     print("Starting Medical Assistant Web App...")
-    print("Open your browser and go to http://127.0.0.1:3000")
-    socketio.run(app, debug=True, port=3000)
+    print("Open your browser and go to http://127.0.0.1:5000")
+    socketio.run(app, debug=True, port=5000)
