@@ -6,3 +6,4 @@ gTTS
 requests
 PyAudio
 python-dotenv
+langdetect
