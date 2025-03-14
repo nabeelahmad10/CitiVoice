@@ -1,22 +1,50 @@
-# About CitiVoice
+# CitiVoice - A 24/7 Citizen Helpline
 
-CitiVoice is a dynamic, multi-service platform that connects citizens with vital support areas around the clock. Whether you need medical assistance, legal advice, government services, emergency help, or a legal/medical document-reader and summariser, CitiVoice provides a user-friendly interface to get you all the support you need.
+CitiVoice is a dynamic platform that connects citizens with vital support services around the clock. Whether you need medical assistance, legal advice, government services, emergency help, or a legal/medical document reader and summarizer, CitiVoice provides a simple and intuitive interface to access all the support you need.
+
+## Important Files
+
+Only these files are essential for running the application:
+
+- `combined.py`
+- `legal.html`
+- `index.html`
+- `government.html`
+- `medical.html`
+- `emergency.html`
+- `solutionprovider.html`
+
+> **Note:** Please do not delete any other files, as it might trigger errors.
+
+## Setup Instructions
+
+### 1. Create and Activate the Virtual Environment
+
+Open your terminal, navigate to your project directory, and run:
+
+```bash
+# Create the virtual environment:
+python -m venv env
+
+# Activate the virtual environment:
+Windows:
+env\Scripts\activate
+
+macOS/Linux:
+source env/bin/activate
+```
+### 2. Install Dependencies
+
+Install all required dependencies using pip. You can either refer to the `requirements.txt` file or run the following command:
 
 
-<h2>HOW TO RUN:</h2>
+```bash
+pip install requests SpeechRecognition Flask flask-socketio pdf2image pytesseract Pillow PyMuPDF langdetect google-generativeai gTTS
+```
+### 3. Run the Application
 
-NOTE: ONLY THESE FILES ARE IMPORTANT AND RESPONSIBLE FOR RUNNING -: COMBINED.PY, LEGAL.HTML, INDEX.HTML, GOVERNMENT.HTML, MEDICAL.HTML, EMERGENCY.HTML, SOLUTIONPROVIDER.HTML
-(BUT DONT DELETE OTHER FILES PLEASE AS IT MIGHT TRIGGER SOME ERROR)
+1. Open the `combined.py` file in your preferred code editor.
+2. Run the file to start the server.
+3. Open your web browser and navigate to [http://127.0.0.1:5005](http://127.0.0.1:5005) to access the main website.
+4. From the main website, you can navigate to the medical, problem solver, government, emergency, and legal sections to interact and use the services.
 
-OPEN YOUR TERMINAL
-CREATE THE VIRTUAL ENV FOR PYTHON:
-1) python -m venv env
-2) env\Scripts\activate
-
-KEEP THE TERMINAL OPEN,
-
-NOW INSTALL ALL THE DEPENDENCIES USING PIP INSTALL, YOU CAN FIND IT IN REQUIREMENTS.TXT OR JUST PASTE THIS LINE IN YOUR TERMINAL:
-1) pip install requests SpeechRecognition Flask flask-socketio pdf2image pytesseract Pillow PyMuPDF langdetect google-generativeai gTTS
-
-OPEN THE COMBINED.PY FILE AND RUN IT. ONCE ITS RUNNING OPEN THE  http://127.0.0.1:5005 SERVER AND IT WILL SHOW THE MAIN WEBSITE.
- YOU CAN NAVIGATE THROUGH TO THE MEDICAL, PROBLEM SOLVER, GOVERNMENT EMERGENCY AND LEGAL AREA AND USE THE CHATBOT IT WILL RUN PERFECTLY
