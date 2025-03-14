@@ -64,15 +64,17 @@
       background-color: #e0e7ff;
       color: #6366f1;
     }
+    /* Thinking (Typing) Indicator */
     .typing-indicator {
       display: flex;
       align-items: center;
       gap: 0.25rem;
+      margin: 8px 0;
     }
     .typing-dot {
-      width: 0.5rem;
-      height: 0.5rem;
-      background-color: #94a3b8;
+      width: 8px;
+      height: 8px;
+      background-color: #6366f1;
       border-radius: 50%;
       animation: bounce 1.5s infinite;
     }
@@ -104,6 +106,7 @@
       color: #6366f1;
       font-weight: 500;
     }
+    /* Recording indicator animation */
     .recording-indicator {
       display: flex;
       justify-content: center;
@@ -120,6 +123,9 @@
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scaleY(1); }
       50% { opacity: 0.6; transform: scaleY(0.6); }
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -220,7 +226,7 @@
             <div class="tab" data-tab="lawyers">Find Lawyers</div>
           </div>
           
-          <!-- Tab content -->
+          <!-- Chat Tab -->
           <div class="tab-content active" id="chat-tab">
             <div class="chat-container bg-white rounded-lg overflow-hidden">
               <!-- Chat header -->
@@ -238,6 +244,7 @@
               
               <!-- Chat messages -->
               <div class="chat-messages" id="chat-messages">
+                <!-- Initial bot greeting -->
                 <div class="message bot">
                   <div class="avatar">
                     <i class="fas fa-balance-scale"></i>
@@ -247,6 +254,13 @@
                     <p class="text-xs mt-1 opacity-70">10:30 AM</p>
                   </div>
                 </div>
+              </div>
+              
+              <!-- Thinking (Typing) Indicator -->
+              <div id="typing-indicator" class="typing-indicator hidden">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
               </div>
               
               <!-- Quick replies -->
@@ -286,9 +300,10 @@
                     <i class="fas fa-paper-plane"></i>
                   </button>
                 </div>
+                <!-- Recording indicator -->
                 <div id="recording-indicator" class="recording-indicator hidden">
                   <p class="text-sm text-red-600">Listening...</p>
-                  <div class="flex items-center gap-1 mt-1">
+                  <div class="flex items-center gap-1">
                     <div class="recording-bar h-4"></div>
                     <div class="recording-bar h-6"></div>
                     <div class="recording-bar h-3"></div>
@@ -300,6 +315,7 @@
             </div>
           </div>
           
+          <!-- Legal Documents Tab -->
           <div class="tab-content" id="documents-tab">
             <div class="p-6">
               <h2 class="text-xl font-bold text-slate-900 mb-2">Legal Document Templates</h2>
@@ -398,6 +414,7 @@
             </div>
           </div>
           
+          <!-- Find Lawyers Tab -->
           <div class="tab-content" id="lawyers-tab">
             <div class="p-6">
               <h2 class="text-xl font-bold text-slate-900 mb-2">Find Legal Professionals</h2>
@@ -431,7 +448,6 @@
                     </div>
                   </div>
                 </div>
-                
                 <!-- Lawyer Card 2 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                   <div class="flex">
@@ -460,7 +476,6 @@
                     </div>
                   </div>
                 </div>
-                
                 <!-- Lawyer Card 3 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                   <div class="flex">
@@ -489,7 +504,6 @@
                     </div>
                   </div>
                 </div>
-                
                 <!-- Lawyer Card 4 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                   <div class="flex">
@@ -521,6 +535,7 @@
               </div>
             </div>
           </div>
+          
         </div>
       </div>
     </div>
@@ -538,20 +553,14 @@
     </div>
   </footer>
   
-  <!-- Socket.IO -->
+  <!-- Socket.IO and custom script -->
   <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
-  
   <script>
-    // Create a socket connected to the '/legal' namespace
+    // Connect to the '/legal' namespace
     const socket = io('/legal');
-
+    
     document.addEventListener('DOMContentLoaded', function() {
-      const chatMessages = document.getElementById('chat-messages');
-      const chatInput = document.getElementById('chat-input');
-      const sendButton = document.getElementById('send-button');
-      const micButton = document.getElementById('mic-button');
-      
-      // Tab switching
+      // Tab switching logic
       const tabs = document.querySelectorAll('.tab');
       const tabContents = document.querySelectorAll('.tab-content');
       tabs.forEach(tab => {
@@ -564,7 +573,16 @@
         });
       });
       
-      // Append a message to chat
+      // Chat elements
+      const chatMessages = document.getElementById('chat-messages');
+      const chatInput = document.getElementById('chat-input');
+      const sendButton = document.getElementById('send-button');
+      const micButton = document.getElementById('mic-button');
+      const recordingIndicator = document.getElementById('recording-indicator');
+      const typingIndicator = document.getElementById('typing-indicator');
+      const quickReplies = document.querySelectorAll('.quick-reply');
+      
+      // Function to append a message (user or bot)
       function addMessage(text, sender) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message', sender === 'user' ? 'user' : 'bot');
@@ -572,9 +590,7 @@
         const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         if (sender === 'bot') {
           messageDiv.innerHTML = `
-            <div class="avatar">
-              <i class="fas fa-balance-scale"></i>
-            </div>
+            <div class="avatar"><i class="fas fa-balance-scale"></i></div>
             <div class="message-content">
               <p>${text}</p>
               <p class="text-xs mt-1 opacity-70">${timeString}</p>
@@ -586,74 +602,94 @@
               <p>${text}</p>
               <p class="text-xs mt-1 opacity-70">${timeString}</p>
             </div>
-            <div class="avatar">
-              <i class="fas fa-user"></i>
-            </div>
+            <div class="avatar"><i class="fas fa-user"></i></div>
           `;
         }
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
       }
       
-      // Send user message to backend
-      sendButton.addEventListener('click', function() {
+      // Send text message (shows typing indicator when chatbot is thinking)
+      function sendMessage() {
         const text = chatInput.value.trim();
         if (!text) return;
         addMessage(text, 'user');
-        socket.emit('send_message', { message: text });
         chatInput.value = '';
-      });
+        // Show typing indicator since chatbot is processing the text message
+        typingIndicator.classList.remove('hidden');
+        socket.emit('send_message', { message: text });
+      }
+      sendButton.addEventListener('click', sendMessage);
+      chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
       
-      chatInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          sendButton.click();
-        }
-      });
-      
-      // Start voice input
-      micButton.addEventListener('click', function() {
+      // Mic button event to handle voice input (show only recording indicator)
+      micButton.addEventListener('click', () => {
+        micButton.disabled = true;
+        micButton.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+        recordingIndicator.classList.remove('hidden');
         socket.emit('start_voice_input');
       });
       
-      // Listen for backend events
-      socket.on('thinking_status', function(data) {
-        console.log("Thinking:", data.status);
+      // Listen for recognized voice input – once received, add user message,
+      // show the thinking (typing) indicator, and emit the message for processing.
+      socket.on('user_message', function(data) {
+        addMessage(data.text, 'user');
+        chatInput.value = data.text;
+        recordingIndicator.classList.add('hidden');
+        // Show the chatbot thinking animation (typing indicator)
+        typingIndicator.classList.remove('hidden');
+        // Emit the message so the chatbot starts processing it
+        socket.emit('send_message', { message: data.text });
+        micButton.disabled = false;
+        micButton.innerHTML = '<i class="fas fa-microphone"></i>';
       });
       
+      // Handle streaming chatbot responses
       socket.on('response_stream', function(data) {
-        // Use or create the latest bot message
+        if (data.is_final) {
+          typingIndicator.classList.add('hidden');
+        }
         let botMsg = document.querySelector('.message.bot.latest');
         if (!botMsg) {
           botMsg = document.createElement('div');
           botMsg.classList.add('message', 'bot', 'latest');
           botMsg.innerHTML = `
-            <div class="avatar">
-              <i class="fas fa-balance-scale"></i>
-            </div>
+            <div class="avatar"><i class="fas fa-balance-scale"></i></div>
             <div class="message-content"><p></p></div>
           `;
           chatMessages.appendChild(botMsg);
         }
         botMsg.querySelector('.message-content p').innerHTML = data.text;
         chatMessages.scrollTop = chatMessages.scrollHeight;
-        if (data.is_final) {
-          botMsg.classList.remove('latest');
-        }
+        if (data.is_final) botMsg.classList.remove('latest');
       });
       
-      socket.on('speech_recognized', function(data) {
-        addMessage(data.text, 'user');
-        chatInput.value = data.text;
-      });
-      
+      // Handle error messages
       socket.on('error_message', function(data) {
         addMessage("Error: " + data.message, 'bot');
+        recordingIndicator.classList.add('hidden');
+        micButton.disabled = false;
+        micButton.innerHTML = '<i class="fas fa-microphone"></i>';
       });
       
-      socket.on('play_audio', function(data) {
-        const audio = new Audio('data:audio/mp3;base64,' + data.audio_data);
+      // Listen for TTS audio event
+      socket.on('tts_audio', function(data) {
+        const audio = new Audio('data:audio/mp3;base64,' + data.audio);
         audio.play();
       });
+      
+      // Listen for stop_audio event
+      socket.on('stop_audio', function() {
+        recordingIndicator.classList.add('hidden');
+        micButton.disabled = false;
+        micButton.innerHTML = '<i class="fas fa-microphone"></i>';
+      });
+      
+      // Quick replies to prefill chat input
+      quickReplies.forEach(button => {
+        button.addEventListener('click', () => { chatInput.value = button.innerText; });
+      });
+      
     });
   </script>
 </body>
