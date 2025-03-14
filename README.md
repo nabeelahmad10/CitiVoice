@@ -2,7 +2,8 @@
 
 CitiVoice is a dynamic, multi-service platform that connects citizens with vital support areas around the clock. Whether you need medical assistance, legal advice, government services, emergency help, or a legal/medical document-reader and summariser, CitiVoice provides a user-friendly interface to get you all the support you need.
 
-HOW TO RUN:
+
+<h2>HOW TO RUN:</h2>
 
 NOTE: ONLY THESE FILES ARE IMPORTANT AND RESPONSIBLE FOR RUNNING -: COMBINED.PY, LEGAL.HTML, INDEX.HTML, GOVERNMENT.HTML, MEDICAL.HTML, EMERGENCY.HTML, SOLUTIONPROVIDER.HTML
 (BUT DONT DELETE OTHER FILES PLEASE AS IT MIGHT TRIGGER SOME ERROR)
