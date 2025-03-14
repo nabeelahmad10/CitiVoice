@@ -50,7 +50,7 @@ pip install requests SpeechRecognition Flask flask-socketio pdf2image pytesserac
 4. From the main website, you can navigate to the medical, problem solver, government, emergency, and legal sections to interact and use the services.
 
 
-### MIT License
+### License
 
 Copyright (c) 2025 CitiVoice
 
