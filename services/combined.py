@@ -25,7 +25,7 @@ app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB file upload limit
 
 # -------------------- SOLUTION PROVIDER FUNCTIONS & ROUTES --------------------
 # Mistral API Functions for solution provider
-MISTRAL_API_KEY = "qCrx2JAOa9tDelNuVPhSusV5Fogl1NEL"  # Replace with your actual API key
+MISTRAL_API_KEY = "yourmistralkeyhere"  # Replace with your actual API key
 MISTRAL_API_URL = "https://api.mistral.ai/v1/chat/completions"
 
 def call_mistral_api(prompt, model="mistral-large-latest"):
@@ -265,7 +265,7 @@ def stream_response_medical(user_input, token, language="en"):
             socketio.emit('thinking_status', {'status': False}, namespace='/medical')
 
 # -------------------- GOVERNMENT ASSISTANT SETUP --------------------
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyCliqGdNtcYJY0f638LOfext7L-Hy4kxXw")  # Replace with your actual Gemini API key
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "yourgeminiapikeyhere")  # Replace with your actual Gemini API key
 GEMINI_MODEL = "gemini-1.5-pro"
 genai.configure(api_key=GEMINI_API_KEY)
 government_token = 0
