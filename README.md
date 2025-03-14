@@ -43,6 +43,13 @@ pip install requests SpeechRecognition Flask flask-socketio pdf2image pytesserac
 ```
 ### 3. Run the Application
 
+
+1. Open the `combined.py` file in your preferred code editor.
+2. Run the file to start the server.
+3. Open your web browser and navigate to [http://127.0.0.1:5005](http://127.0.0.1:5005) to access the main website.
+4. From the main website, you can navigate to the medical, problem solver, government, emergency, and legal sections to interact and use the services.
+
+
 ### MIT License
 
 Copyright (c) 2025 CitiVoice
@@ -64,10 +71,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
-1. Open the `combined.py` file in your preferred code editor.
-2. Run the file to start the server.
-3. Open your web browser and navigate to [http://127.0.0.1:5005](http://127.0.0.1:5005) to access the main website.
-4. From the main website, you can navigate to the medical, problem solver, government, emergency, and legal sections to interact and use the services.
 
