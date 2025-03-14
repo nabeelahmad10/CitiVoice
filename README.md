@@ -14,7 +14,7 @@ Only these files are essential for running the application:
 - `emergency.html`
 - `solutionprovider.html`
 
-> **Note:** Please do not delete any other files, as it might trigger errors.
+> **Note:** Please do not delete any other files, as it might trigger errors. Also get the API from Mistral, Gemini and add it in the combined.py
 
 ## Setup Instructions
 
